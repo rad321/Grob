@@ -1,0 +1,25 @@
+{
+  "name": "grob",
+  "version": "1.0.0",
+  "description": "Progetto Programmazione Avanzata",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexxdediu/Grob.git"
+  },
+  "author": "Alex Dediu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexxdediu/Grob/issues"
+  },
+  "homepage": "https://github.com/alexxdediu/Grob#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "sequelize": "^6.24.0",
+    "ts-node": "^10.9.1"
+  }
+}

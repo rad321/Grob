@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+    grob_db:
+        image: postgres
+        restart: always
+        environment:
+          - POSTGRES_USER=alexdediu
+          - POSTGRES_PASSWORD=progettopa
+        ports:
+          - 5432:5432   
+    grob_app:
+        build: .
+        ports:
+          - 8080:8080
+        environment:
+          - PGUSER=alexdediu
+          - PGDATABASE=grobdb
+          - PGHOST=grob_db
+          - PGPASSWORD=progettopa
+          - PGPORT=5432
+        depends_on:
+          - grob_db
