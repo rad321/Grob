@@ -1,11 +1,12 @@
 
-const express = require('express');
+var express = require('express');
+var dotenv = require ('dotenv').config()
 // Constants
-const PORT = 3200;
-const HOST = '0.0.0.0';
+var PORT = process.env.PORT;
+var HOST = process.env.HOST;
 
 // App
-const app = express();
+var app = express();
 app.get('/', (req, res) => {
   res.send('Prova');
 });
