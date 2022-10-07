@@ -1,5 +1,5 @@
-import { checkEmailFormat, checkIfUserExist} from "../middleware/credentials-middleware";
-const {signUp} = require ('./controller.ts');
+import { checkEmailFormat, checkIfUserExist } from "../middleware/credentials-middleware";
+const { signUp } = require('./controller.ts');
 var express = require('express');
 var fs = require('fs');
 var body = require('body-parser');
@@ -13,32 +13,32 @@ var app = express();
 /**
  * Registrazione con email e pwd
  */
-app.post('/signUp',jsonParser,checkEmailFormat,checkIfUserExist, (req,res) =>{
-    try{
-    signUp(req.body.email,req.body.pwd)
-     res.json("SignUp OK!")
-    }catch{
-     res.json("Errore")
+app.post('/signUp', jsonParser, checkEmailFormat, checkIfUserExist, (req, res) => {
+    try {
+        signUp(req.body.email, req.body.pwd)
+        res.json("SignUp OK!")
+    } catch {
+        res.json("Errore")
     }
 
 
-    
+
 
 })
 /**
  * Login con con verifica della stringa jwt
  */
-app.post('/signIn',(req,res) =>{
+app.post('/signIn', (req, res) => {
 
 })
 /**
  * Rotta per creare una nuova partita, specificando il livello di difficoltà
  */
 
-app.post('/newGame/:level',jsonParser, (req,res) =>{
+app.post('/newGame/:level', jsonParser, (req, res) => {
 
 
-   
+
 
 
 
@@ -46,14 +46,14 @@ app.post('/newGame/:level',jsonParser, (req,res) =>{
 /**
  * Rotta per ottenere lo storico di una partita
  */
-app.post('/history/:id', (req,res) =>{
-    
-    
+app.post('/history/:id', (req, res) => {
+
+
 })
 /**
  * Rotta per effettuare un movimento sulla scacchiera (nuova partita o partita sospesa)
  */
-app.post('/move/:boardId', (req,res) =>{
+app.post('/move/:boardId', (req, res) => {
 
 })
 
