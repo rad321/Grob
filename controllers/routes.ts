@@ -1,5 +1,7 @@
-import { checkEmailFormat, checkEmailJwt, checkIfUserExist, checkUserEmail } from "../middleware/credentials-middleware";
-import { login } from "./controller";
+import { checkEmailFormat, checkIfUserExist, checkUserEmail } from "../middleware/credentials-middleware";
+import { checkEmailJwt } from "../middleware/jwt-middleware";
+import { Utils } from "../utils/utils";
+import { createNewGame, login } from "./controller";
 const { signUp } = require('./controller.ts');
 var express = require('express');
 var fs = require('fs');
@@ -44,6 +46,9 @@ try{
  */
 
 app.post('/newGame/:level', jsonParser,checkEmailJwt,checkGameLevel, (req, res) => {
+   createNewGame(req)
+    
+
 
 
 

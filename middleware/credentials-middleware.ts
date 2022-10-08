@@ -45,15 +45,7 @@ export const checkIfUserExist = function (req,res,next){
 
     })
 }
-export const checkEmailJwt = (req,res,next) =>{
-    var token = Utils.decodeJwt(req.headers.authorization)
-    findUser(token.email).then((user)=>{
-        if(typeof user == 'undefined') res.json("Non esiste un account associato all'email " + req.body.email)
-        else next()
 
-    })
-
-}
 /**
  * Middleware che verifica se le credenziali sono presenti nel database.
  * Utilizzato durante il login.

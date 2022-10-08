@@ -1,7 +1,7 @@
 
 
 var {user}= require('../models/users.ts');
-var boards = require('../models/boards.ts');
+var {board} = require('../models/boards.ts');
 
 export const addNewAccount = async (email,pwd) =>{
 
@@ -24,4 +24,21 @@ export const findUser =  async (email)=>{
     });
     console.log(account.length)
     return    !account.length ? undefined : account
+}
+
+export const addNewGame = async (map) =>{
+    return board.create({
+        player1 : map.get('player1'),
+        color1 : map.get('color1'),
+        player2 : map.get('plater2'),
+        color2 : map.get('color2'),
+        history : map.get('history'),
+        config : map.get('config')
+
+
+
+
+
+
+    })
 }

@@ -16,6 +16,7 @@ CREATE TABLE boards(
     player2 INTEGER,
     color2 VARCHAR(10),
     config TEXT,
-    history TEXT
+    history TEXT,
+    level INTEGER
   
 );

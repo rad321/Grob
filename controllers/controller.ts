@@ -1,5 +1,7 @@
+import { addNewGame } from "../database/queries";
 import { Utils } from "../utils/utils";
 
+var chessEngine = require('js-chess-engine');
 var path = require("path")
 var {addNewAccount} = require("../database/queries.ts");
 require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
@@ -22,6 +24,12 @@ export const login = (email,pwd) =>{
     return  Utils.createJwt(email,pwd);
 }
 
+export const createNewGame= (request) =>{
+    var game = chessEngine.Game();
+    addNewGame(Utils.createGameMap(request,game))
+    
+    
+}
 
 
 
