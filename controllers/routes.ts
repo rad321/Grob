@@ -1,4 +1,5 @@
-import { checkEmailFormat, checkIfUserExist } from "../middleware/credentials-middleware";
+import { checkEmailFormat, checkEmailJwt, checkIfUserExist, checkUserEmail } from "../middleware/credentials-middleware";
+import { login } from "./controller";
 const { signUp } = require('./controller.ts');
 var express = require('express');
 var fs = require('fs');
@@ -20,22 +21,30 @@ app.post('/signUp', jsonParser, checkEmailFormat, checkIfUserExist, (req, res) =
     } catch {
         res.json("Errore")
     }
-
-
-
-
 })
 /**
  * Login con con verifica della stringa jwt
  */
-app.post('/signIn', (req, res) => {
+app.post('/signIn',jsonParser,checkEmailFormat,checkUserEmail,(req, res) => {
+try{
+    let token = login(req.body.email,req.body.pwd);
+    console.log(token)
+    res.json(token);
+    
+}catch{
+    res.json("Errore")
+}
+
+
 
 })
 /**
  * Rotta per creare una nuova partita, specificando il livello di difficoltà
+ * 
  */
 
-app.post('/newGame/:level', jsonParser, (req, res) => {
+app.post('/newGame/:level', jsonParser,checkEmailJwt,checkGameLevel, (req, res) => {
+
 
 
 
