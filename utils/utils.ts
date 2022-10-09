@@ -21,20 +21,40 @@ export class Utils{
     static decodeJwt(token){
         return jwt.verify(token,process.env.SECRET_KEY);
     }
-    static createGameMap(request,game){
+    static createGameMap(req,game){
         var map = new Map()
-        const keys = ['player1','color1','player2','color2','history','config']
+        const keys = ['player','color','history','config','level']
         keys.forEach(item =>{
             if(item == 'history'){
                 map.set(item,JSON.stringify(game.getHistory()))
             }
             else if(item == 'config'){
                 map.set(item,JSON.stringify(game.exportJson()))
-            }
-            else{
-            map.set(item,request.body[item])
+            }else if(item == 'level'){
+                map.set(item,req.params.level)
+
+            }else{
+                console.log("player =>")
+            map.set(item,req.body[item])
             }
         })
         console.log(map)
+        return map
+    }
+    static validMove(config,body) : boolean{
+        console.log(JSON.parse(config).moves)
+        Object.entries(JSON.parse(config).moves).forEach(([key,value])=>{
+            console.log(value)
+            if(key == body.from && Array(value).includes(body.to)){
+                return true
+
+            }
+            
+        })
+        return false
+
+        
+        
+
     }
 }

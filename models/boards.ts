@@ -4,36 +4,38 @@ const sequelize = new Sequelize('grobdb', 'alexdediu', 'progettopa', {
     dialect: 'postgres'
 });
 
-export class boards extends Model {
-
-
-}
+export class boards extends Model {}
 export const board = boards.init({
-
-    player1: {
+    id : {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    player: {
         type: DataTypes.INTEGER,
     },
-    color1: {
+    color: {
         type: DataTypes.INTEGER,
     },
-    player2: {
-        type: DataTypes.INTEGER,
-    },
-    color2: {
-        type: DataTypes.INTEGER,
-    },
+  
     history: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
     },
     config: {
         type: DataTypes.STRING,
 
-    }
+    },
+    level: {
+        type: DataTypes.INTEGER,
+    },
 
 
 
 }, {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
-    modelName: 'boards' // We need to choose the model name
+    sequelize,
+    timestamps:false,
+    createdAt: false,
+    updatedAt: false,
+    modelName: 'boards' 
+  
 })

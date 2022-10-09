@@ -27,18 +27,19 @@ export const findUser =  async (email)=>{
 }
 
 export const addNewGame = async (map) =>{
-    return board.create({
-        player1 : map.get('player1'),
-        color1 : map.get('color1'),
-        player2 : map.get('plater2'),
-        color2 : map.get('color2'),
+       await board.create({
+        player : map.get('player'),
+        color : map.get('color'),
         history : map.get('history'),
-        config : map.get('config')
-
-
-
-
-
+        config : map.get('config'),
+        level : map.get('level')
 
     })
+    
+}
+export const findBoardId = async (id) =>{
+    console.log(id)
+    const data = await board.findByPk(id)
+    return data
+
 }

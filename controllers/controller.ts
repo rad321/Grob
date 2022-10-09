@@ -1,4 +1,4 @@
-import { addNewGame } from "../database/queries";
+import { addNewGame, findBoardId } from "../database/queries";
 import { Utils } from "../utils/utils";
 
 var chessEngine = require('js-chess-engine');
@@ -24,11 +24,26 @@ export const login = (email,pwd) =>{
     return  Utils.createJwt(email,pwd);
 }
 
-export const createNewGame= (request) =>{
-    var game = chessEngine.Game();
-    addNewGame(Utils.createGameMap(request,game))
+export const createNewGame= (req) =>{
+    var game = new chessEngine.Game();
+    addNewGame(Utils.createGameMap(req,game))
     
     
+}
+export const pieceMove = (req) => {
+    
+    findBoardId(req.params.boardId).then((data) =>{
+       var board = data.dataValues
+       var game =  new chessEngine.Game(JSON.parse(board.config))
+       console.log('turn => ' + JSON.parse(board.config).turn)
+       console.log('player => ' + board.color)
+       if(JSON.parse(board.config).turn == board.color)//game.move(req.body.from,req.body.to)
+       {
+        if(Utils.validMove(board.config,req.body)) game.move(req.body.from,req.body.to)
+       }
+       else game.aiMove()
+    })
+
 }
 
 

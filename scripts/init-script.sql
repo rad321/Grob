@@ -11,10 +11,8 @@ CREATE TABLE users(
 );
 CREATE TABLE boards(
     id SERIAL PRIMARY KEY,
-    player1 INTEGER,
-    color1 VARCHAR(10),
-    player2 INTEGER,
-    color2 VARCHAR(10),
+    player INTEGER,
+    color VARCHAR(10),
     config TEXT,
     history TEXT,
     level INTEGER
