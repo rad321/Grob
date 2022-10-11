@@ -6,15 +6,16 @@ CREATE TABLE users(
     pwd VARCHAR(40),
     credits NUMERIC,
     wins INTEGER,
-    losses INTEGER,
+    defeats INTEGER,
     draw INTEGER
 );
 CREATE TABLE boards(
     id SERIAL PRIMARY KEY,
-    player INTEGER,
+    player INTEGER REFERENCES users(id),
     color VARCHAR(10),
     config TEXT,
     history TEXT,
+    startDate DATE,
     level INTEGER
   
 );

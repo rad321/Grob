@@ -42,19 +42,25 @@ export class Utils{
         return map
     }
     static validMove(config,body) : boolean{
-        console.log(JSON.parse(config).moves)
-        Object.entries(JSON.parse(config).moves).forEach(([key,value])=>{
-            console.log(value)
-            if(key == body.from && Array(value).includes(body.to)){
+       // console.log(config)
+        var moves = JSON.parse(config).moves
+       // console.log(JSON.parse(config).moves)
+        Object.keys(moves).forEach((key)=>{
+            //var a : string[] = value
+            
+            //console.log(Object.values(key).includes(body.to))
+            if(key == body.from && moves[key].includes(body.to)){
+                console.log("è true!")
                 return true
 
-            }
-            
+            }else{
+                return false}
         })
-        return false
+        return;  
 
+    }
+    createJsonGameInfo(history,gamesMap){
         
-        
-
+       
     }
 }

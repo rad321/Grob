@@ -28,9 +28,6 @@ export const board = boards.init({
     level: {
         type: DataTypes.INTEGER,
     },
-
-
-
 }, {
     sequelize,
     timestamps:false,

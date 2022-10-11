@@ -25,6 +25,9 @@ export const findUser =  async (email)=>{
     console.log(account.length)
     return    !account.length ? undefined : account
 }
+export const  findAllUsers = async () =>{
+    return await user.findAll()
+}
 
 export const addNewGame = async (map) =>{
        await board.create({
@@ -42,4 +45,23 @@ export const findBoardId = async (id) =>{
     const data = await board.findByPk(id)
     return data
 
+}
+export const updateBoard = async (config,history,id) => {
+    await board.update({config:JSON.stringify(config),history:JSON.stringify(history)},{
+        where : {
+            id : id
+        }
+    })
+
+}
+export const findGamesByDate= async (req) =>{
+    return await board.findAll({
+        where :{
+            startDate : req.body.startDate,
+            
+        }
+    })
+}
+export const findAllGames = async () => {
+    return await board.findAll(). then( data =>{return data})
 }

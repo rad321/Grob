@@ -1,8 +1,8 @@
 import { checkEmailFormat, checkIfUserExist, checkUserEmail } from "../middleware/credentials-middleware";
 import { checkEmailJwt } from "../middleware/jwt-middleware";
-import {checkBoardId, checkGameLevel} from "../middleware/game-middleware";
+import {checkBoardId, checkGameLevel, checkPieceMove} from "../middleware/game-middleware";
 import { Utils } from "../utils/utils";
-import { createNewGame, login, pieceMove } from "./controller";
+import { createNewGame, findGames, login, pieceMove } from "./controller";
 const { signUp } = require('./controller.ts');
 var express = require('express');
 var fs = require('fs');
@@ -52,8 +52,8 @@ app.post('/newGame/:level', jsonParser,checkGameLevel,checkEmailJwt,(req, res) =
 /**
  * Rotta per effettuare un movimento sulla scacchiera (nuova partita o partita sospesa)
  */
- app.post('/move/:boardId',checkEmailJwt,checkBoardId,(req, res) => {
-    pieceMove(req)
+ app.post('/move/:boardId',jsonParser,checkPieceMove,checkEmailJwt,checkBoardId,(req, res) => {
+    pieceMove(req,res)
 })
 /**
  * Rotta per ottenere lo storico di una partita
@@ -63,7 +63,15 @@ app.post('/history/:id', (req, res) => {
 
 
 })
+/**
+ * Rotta che restituisce lo stato di una partita
+ */
 
+app.post('/games/:boardId?',jsonParser,checkEmailJwt,(req,res)=>{
+ findGames(req,res)
+
+
+})
 
 
 
