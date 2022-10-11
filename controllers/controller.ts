@@ -1,5 +1,5 @@
 import { addNewGame, findAllGames, findAllUsers, findBoardId, findGamesByDate, updateBoard } from "../database/queries";
-import { Utils } from "../utils/utils";
+import { createJsonGameInfo, Utils } from "../utils/utils";
 
 var chessEngine = require('js-chess-engine');
 var path = require("path")
@@ -60,44 +60,26 @@ export const pieceMove = (req,res) => {
 export const findGames = async (req,res) =>{
     if(req.body.date != undefined && req.params.boardId == undefined) findGamesByDate(req)
     else {
-        var games : Array<object> = new Array<object> 
-        var totInfo : Array<object> = new Array<object> 
+      
+        var infoGames : Array<object> = new Array<object> 
         var data = await findAllGames()
         var users = await findAllUsers()
 
         users.forEach(user =>{
             data.forEach(item =>{
-                if(user.id == item.player){
-                    var game = {
-                        boardId : item.id,
-                        player : item.player,
-                        nMoves : Object.keys(JSON.parse(item.history)).length
-                    }
-                    games.push(game)
-                    //console.log(Object.keys(JSON.parse(item.history)).length)
-                   
-                }
-            }
-            )
-            var info = {
-                boards : games,
-                wins : user.wins,
-                defeats :user.losses,
-                draw : user.draw
-           }
-           totInfo.push(info)
+            infoGames.push(createJsonGameInfo(item,user))
 
             
             
         })
-        res.json(totInfo)
+        res.json(infoGames)
 
         
      
-    }
+    })
 
 }
 
 
 
-
+}
