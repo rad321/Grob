@@ -2,8 +2,11 @@ import { findUser } from "../database/queries"
 import { Utils } from "../utils/utils"
 
 export const checkEmailJwt = (req, res, next) => {
-    const token= req.headers.authorization.split(" ")[1]
+    //console.log(req.headers.authorization)
+    const token= req.headers.authorization
+   // console.log(token)
     var jwtDecode = Utils.decodeJwt(token)
+
     
     if (jwtDecode != null) {
         findUser(jwtDecode.email).then((user) => {

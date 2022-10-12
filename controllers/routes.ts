@@ -18,27 +18,16 @@ var app = express();
  * Registrazione con email e pwd
  */
 app.post('/signUp', jsonParser, checkEmailFormat, checkIfUserExist, (req, res) => {
-    try {
-        signUp(req.body.email, req.body.pwd)
-        res.json("SignUp OK!")
-    } catch {
-        res.json("Errore")
-    }
+  
+        signUp(req,res)
+        
 })
 /**
  * Login con con verifica della stringa jwt
  */
 app.post('/signIn',jsonParser,checkEmailFormat,checkUserEmail,(req, res) => {
-try{
-    let token = login(req.body.email,req.body.pwd);
-    console.log(token)
-    res.json(token);
-    
-}catch{
-    res.json("Errore")
-}
 
-
+    login(req,res);
 
 })
 /**
@@ -68,6 +57,7 @@ app.post('/history/:id', (req, res) => {
  */
 
 app.post('/games/:boardId?',jsonParser,checkEmailJwt,(req,res)=>{
+    console.log(req.header.authorization)
  findGames(req,res)
 
 
@@ -82,18 +72,3 @@ console.log("Partiti!");
 
 
 
-/**
- * 
- * 
- *    const game = new jsChessEngine.Game();
-    console.log(req.body)
-    console.log(Object.keys(req.body)[0])
-    console.log(Object.values(req.body)[0])
-    var m1 =game.aiMove();
-    var m2 = game.move(Object.keys(req.body)[0],Object.values(req.body)[0])
-    console.log(m1)
-    var m2 = game.aiMove();
-    console.log(m2)
-    //game.exportJson();
-    res.send(game.getHistory());
- */

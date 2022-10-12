@@ -16,6 +16,7 @@ CREATE TABLE boards(
     config TEXT,
     history TEXT,
     startDate DATE,
-    level INTEGER
+    level INTEGER,
+    win BOOLEAN
   
 );

@@ -21,6 +21,11 @@ export const board = boards.init({
     history: {
         type: DataTypes.STRING,
     },
+    startdate: {
+        type: DataTypes.DATE,
+
+    },
+
     config: {
         type: DataTypes.STRING,
 

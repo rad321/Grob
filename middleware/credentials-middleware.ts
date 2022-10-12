@@ -37,13 +37,16 @@ export const checkEmailFormat = function(req,res,next){
  * @param res 
  * @param next 
  */
-export const checkIfUserExist = function (req,res,next){
+export const checkIfUserExist =  async function (req,res,next){
 
-    findUser(req.body.email).then((user)=>{
-        if(typeof user != 'undefined') res.json("L'email " + req.body.email + " è già stata utilizzata per creare un account")
-        else next()
+    var user = await findUser(req.body.email)
+console.log(user.length)
+        if(user.length != 0) res.json("L'email " + req.body.email + " è già stata utilizzata per creare un account")
+        else {
+            console.log(req.body.email)
+            next()}
 
-    })
+   
 }
 
 /**

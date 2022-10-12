@@ -7,6 +7,11 @@ const sequelize = new Sequelize('grobdb', 'alexdediu', 'progettopa', {
 class users extends Model{}
 
 export const user = users.init({
+    id : {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
     email:{
         type: DataTypes.STRING,
         allowNull: false
@@ -16,12 +21,12 @@ export const user = users.init({
         allowNull: false
     },
     credits:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.NUMERIC,
     },
     wins:{
         type: DataTypes.INTEGER,
     },
-    losses:{
+    defeats:{
         type: DataTypes.INTEGER,
     },
     draw:{

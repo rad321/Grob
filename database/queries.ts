@@ -2,28 +2,28 @@
 
 var {user}= require('../models/users.ts');
 var {board} = require('../models/boards.ts');
+let today = new Date().toLocaleDateString()
 
-export const addNewAccount = async (email,pwd) =>{
-
+export const addNewAccount = async (req) =>{
+    console.log(req.body.credits)
      await  user.create({
-        email : email,
-        pwd : pwd,
-        credits : 10,
+        email : req.body.email,
+        pwd : req.body.pwd,
+        credits : req.body.credits,
         wins : 1,
-        losses: 1,
+        defeats : 1,
         draw : 1
      })
 
   }
 
 export const findUser =  async (email)=>{
-    const account =  await user.findAll({
+    return await user.findAll({
         where : {
             email : email
         }
     });
-    console.log(account.length)
-    return    !account.length ? undefined : account
+    
 }
 export const  findAllUsers = async () =>{
     return await user.findAll()
@@ -35,6 +35,7 @@ export const addNewGame = async (map) =>{
         color : map.get('color'),
         history : map.get('history'),
         config : map.get('config'),
+        startDate : today,
         level : map.get('level')
 
     })
@@ -57,11 +58,11 @@ export const updateBoard = async (config,history,id) => {
 export const findGamesByDate= async (req) =>{
     return await board.findAll({
         where :{
-            startDate : req.body.startDate,
+            startdate : req.body.startDate,
             
         }
     })
 }
-export const findAllGames = async () => {
-    return await board.findAll(). then( data =>{return data})
+export const findGamesByUserId = async (id) => {
+    return await board.findAll({ where : { player : id }})
 }

@@ -1,4 +1,4 @@
-import { addNewGame, findAllGames, findAllUsers, findBoardId, findGamesByDate, updateBoard } from "../database/queries";
+import { addNewGame, findBoardId, findGamesByDate, findGamesByUserId, findUser, updateBoard } from "../database/queries";
 import { Utils } from "../utils/utils";
 
 var chessEngine = require('js-chess-engine');
@@ -11,8 +11,14 @@ require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
  * @param email 
  * @param pwd 
  */
-export function signUp(email, pwd) {
-    addNewAccount(email, pwd);
+export function signUp(req,res) {
+    try{
+    addNewAccount(req);
+    res.json("Registrazione effettuata con successo!")
+    }catch (err){
+        console.log("errore : " + err)
+    }
+    
 }
 /**
  * Autenticazione e creazione della stringa JWT
@@ -20,8 +26,8 @@ export function signUp(email, pwd) {
  * @param pwd 
  * @returns 
  */
-export const login = (email, pwd) => {
-    return Utils.createJwt(email, pwd);
+export const login = (req,res) => {
+    return Utils.createJwt(req,res);
 }
 /**
  * Creazione di una nuova partita
@@ -58,18 +64,21 @@ export const pieceMove = (req, res) => {
  * @param res 
  */
 export const findGames = async (req, res) => {
+
+     
     if (req.body.date != undefined && req.params.boardId == undefined) findGamesByDate(req)
     else {
+
+       
         var infoGames: Array<object> = new Array<object>
-        // contiene tutti i dati presenti nella tabella boards
-        var data = await findAllGames()
-        // contiene tutti i dati presenti nella tabella users
-        var users = await findAllUsers()
-        users.forEach(user => {
-            data.forEach(item => {
-                infoGames.push(Utils.createJsonGameInfo(item, user))
-            })
-            res.json(infoGames)
-        })
+        var data = await findGamesByUserId(Utils.getUser(req.headers.authorization).userid)
+        var user = await findUser(Utils.getUser(req.headers.authorization).email)
+        console.log("user" + Utils.getUser(req.headers.authorization))
+        
+
+        
+    
+       
     }
+    
 }
