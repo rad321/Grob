@@ -236,7 +236,6 @@ function sortUsers(ranking, sortType) {
 export const setBoardState = async (req, res) => {
     var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
     if (data[0].dataValues.state != boardConstants.STATE_STOPPED){
-
         var userid = Utils.decodeJwt(req.headers.authorization).userid
         var user = await findUserById(userid)
         var cost: number = 0.40

@@ -42,6 +42,7 @@ export const board = boards.init({
     state: {
         type: DataTypes.STRING,
     }
+   
 }, {
     sequelize,
     timestamps:false,

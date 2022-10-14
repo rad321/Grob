@@ -7,7 +7,7 @@ CREATE TABLE users(
     credits NUMERIC,
     wins INTEGER,
     defeats INTEGER,
-    draw INTEGER
+    admin BOOLEAN
 );
 CREATE TABLE boards(
     id SERIAL PRIMARY KEY,

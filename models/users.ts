@@ -34,10 +34,9 @@ export const user = users.init({
     },
     defeats:{
         type: DataTypes.INTEGER,
-    },
-    draw:{
-        type: DataTypes.INTEGER,
-
+    }, 
+    admin: {
+        type: DataTypes.BOOLEAN,
     }
 },{
     
