@@ -19,7 +19,8 @@ export const boardConstants = {
     PIECE_COLOR_BLACK : "black",
     STATE_WIN : "win",
     STATE_DEFEAT : "defeat",
-    STATE_ABANDONED : "abandoned"
+    STATE_ABANDONED : "abandoned",
+    STATE_IN_PROGRESS : "ip"
 
 
 
@@ -49,7 +50,7 @@ export const exceptionMsg = {
     ERR_JWT_EMAIL :"Non esiste un account associato all'email ",
     ERR_JWT : "JWT errato, il payload presente nella stringa jwt non corrisponde ad alcuna utenza",
     ERR_CREAZIONE_UTENZA : "L'email inserita è già stata utilizzata per creare un account",
-    ERR_STATO_STOPPED : "Lo partita è già stata interrotta"
+    ERR_STATO_STOPPED : "Lo partita è già stata interrotta",
     
 
 }

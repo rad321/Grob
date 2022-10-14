@@ -51,6 +51,7 @@ export const pieceMove = async (req, res) => {
     var userid = Utils.decodeJwt(req.headers.authorization).userid
     var board = data[0].dataValues
     var game = new chessEngine.Game(JSON.parse(board.config))
+    if(isStopped(board,userid)) updateBoardState(boardConstants.STATE_IN_PROGRESS,board.id)
     // verifica se è il turno del player
     if (JSON.parse(board.config).turn == board.color) {
         if (checkState(board, board.color, userid)) {
@@ -65,6 +66,11 @@ export const pieceMove = async (req, res) => {
     var merge: Array<Object> = JSON.parse(board.history).concat(game.getHistory())
     updateBoard(game.exportJson(), merge, req.params.boardid)
 }
+  function isStopped(board,userid){
+    if(board.state == boardConstants.STATE_STOPPED) return true
+    else return false
+
+ }
 /**
  * 
  * @param board 
