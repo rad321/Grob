@@ -224,22 +224,18 @@ function sortUsers(ranking, sortType) {
  * @param req 
  * @param res 
  */
-export const setBoardState = async (req,res)=>{
-    var data = await findGameByBoardId(req.params.boardid,Utils.decodeJwt(req.headers.authorization).userid)
+export const setBoardState = async (req, res) => {
+    var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
     console.log(data)
-    if(data[0].dataValues.state != boardConstants.STATE_STOPPED){
-    
-    var userid= Utils.decodeJwt(req.headers.authorization).userid
-    var user = await findUserById(userid)
-    var cost : number  = 0.40
-    var credits : number = Number(user[0].dataValues.credits)-cost
-    await updateUserCredits(credits,userid)
-    await updateBoardState(boardConstants.STATE_STOPPED,req.params.boardid)
+    if (data[0].dataValues.state != boardConstants.STATE_STOPPED){
+
+        var userid = Utils.decodeJwt(req.headers.authorization).userid
+        var user = await findUserById(userid)
+        var cost: number = 0.40
+        var credits: number = Number(user[0].dataValues.credits) - cost
+        await updateUserCredits(credits, userid)
+        await updateBoardState(boardConstants.STATE_STOPPED, req.params.boardid)
     } else res.json(exceptionMsg.ERR_STATO_STOPPED)
-
-    
-
-
 }
 
 
