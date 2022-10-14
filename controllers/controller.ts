@@ -55,8 +55,10 @@ export const pieceMove = async (req, res) => {
     // verifica se è il turno del player
     if (JSON.parse(board.config).turn == board.color) {
         if (checkState(board, board.color, userid)) {
+            console.log("mov player")
             game.move(req.body.from, req.body.to)
             if (checkState(board, board.color, userid)) {
+                console.log("mov ai")
                 var aiMove = game.aiMove(board.level)
                 res.json(aiMove)
             }
@@ -109,7 +111,8 @@ async function updateConfig(state, id) {
  * @param res 
  */
 export const findGames = async (req, res) => {
-    if (req.params.boardid == undefined) {
+    console.log("CIAO")
+    if (req.params.boardid == constants.EMPTY_PARAM_BOARDID) {
         if (req.body.date != undefined) {
             var gamesByDate = await findGamesByDate(req)
             if (gamesByDate.length == 0) res.json(exceptionMsg.PARTITE_INESISTENTI_BY_DATE).status(404)
@@ -232,7 +235,6 @@ function sortUsers(ranking, sortType) {
  */
 export const setBoardState = async (req, res) => {
     var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
-    console.log(data)
     if (data[0].dataValues.state != boardConstants.STATE_STOPPED){
 
         var userid = Utils.decodeJwt(req.headers.authorization).userid
@@ -242,6 +244,12 @@ export const setBoardState = async (req, res) => {
         await updateUserCredits(credits, userid)
         await updateBoardState(boardConstants.STATE_STOPPED, req.params.boardid)
     } else res.json(exceptionMsg.ERR_STATO_STOPPED)
+}
+export const updateCredits = async (req,res) =>{
+    var user = await findUser(req.body.email)
+    updateUserCredits(req.body.credits,user[0].dataValues.id)
+    .then(()=> res.json(successMsg.UPDATE_CREDITS)).catch((err) =>exceptionMsg.ERR_UPDATE_CREDITS + err)
+
 }
 
 

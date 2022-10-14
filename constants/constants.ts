@@ -51,6 +51,9 @@ export const exceptionMsg = {
     ERR_JWT : "JWT errato, il payload presente nella stringa jwt non corrisponde ad alcuna utenza",
     ERR_CREAZIONE_UTENZA : "L'email inserita è già stata utilizzata per creare un account",
     ERR_STATO_STOPPED : "Lo partita è già stata interrotta",
+    BOARD_INESISTENTE : "L'id inserito non non corrisponde a nessuna Board",
+    ERR_ADMIN : "Questa rotta può essere utilizzata solo con una utenza amministratore",
+    ERR_UPDATE_CREDITS : "La modifica dei crediti non è andata a buon fine, si è verificato il seguente errore: "
     
 
 }
@@ -59,7 +62,8 @@ export const successMsg = {
     PARTITA_INIZIATA : "Partita iniziata!",
     PARTITA_CONCLUSA : "partita conclusa",
     PARTITA_ABBANDONATA : "La partita è stata abbandonata",
-    PARTITA_INTERROTTA : "La partita è stata interrotta"
+    PARTITA_INTERROTTA : "La partita è stata interrotta",
+    UPDATE_CREDITS : "La modifica dei crediti è avvenuta con successo"
 
    
 

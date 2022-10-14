@@ -1,9 +1,9 @@
 import { checkEmailFormat, checkIfUserExist, checkUserEmail } from "../middleware/credentials-middleware";
 import { checkEmailJwt } from "../middleware/jwt-middleware";
-import { checkBoardId, checkGameLevel, checkGameState, checkPieceMove, checkPlayerColor, checkReqLength, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
-import { abandoned, createNewGame, findGame, findGames, getHistory, getRanking, login, pieceMove, setBoardState } from "./controller";
-import { checkSortType, dateValidator } from "../middleware/middleware";
-import { abandonedGame } from "../database/queries";
+import { checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqLength, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
+import { abandoned, createNewGame, findGame, findGames, getHistory, getRanking, login, pieceMove, setBoardState, updateCredits } from "./controller";
+import { checkSortType, dateValidator, isAdmin } from "../middleware/middleware";
+import { abandonedGame, updateUserCredits } from "../database/queries";
 const { signUp } = require('./controller.ts');
 var express = require('express');
 var body = require('body-parser');
@@ -52,7 +52,7 @@ app.get('/history/:boardid', checkEmailJwt, (req, res) => {
  * Rotta che restituisce lo stato di una partita
  */
 
-app.post('/games/:boardid?', jsonParser, checkEmailJwt, dateValidator, (req, res) => {
+app.post('/games/:boardid?', jsonParser, checkEmailJwt,dateValidator,checkOptionalBoardId, (req, res) => {
     findGames(req, res)
 })
 /**
@@ -87,7 +87,8 @@ app.get('/stopped/:boardid',checkEmailJwt,checkBoardId,(req, res) => {
 /**
  * 
  */
-app.post('/admin', (req, res) => {
+app.post('/admin',isAdmin, (req, res) => {
+    updateCredits(req,res)
 
 })
 

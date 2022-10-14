@@ -71,6 +71,19 @@ export const checkBoardId = async (req, res, next) => {
  * @param res 
  * @param next 
  */
+export const checkOptionalBoardId= async  (req,res,next) =>{
+    var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+    if(data.length == 0) res.json(exceptionMsg.BOARD_INESISTENTE)
+    else next()
+
+
+}
+/**
+ * 
+ * @param req 
+ * @param res 
+ * @param next 
+ */
 export const checkPieceMove = async (req, res, next) => {
     var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
     if (data.length == 0) res.json(exceptionMsg.PARTITA_INESISTENTE_BY_ID)
