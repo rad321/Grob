@@ -1,21 +1,20 @@
+import { constants, exceptionMsg } from "../constants/constants"
 import { findUser } from "../database/queries"
 import { Utils } from "../utils/utils"
-
+/**
+ * 
+ * @param req 
+ * @param res 
+ * @param next 
+ */
 export const checkEmailJwt = (req, res, next) => {
-    //console.log(req.headers.authorization)
     const token= req.headers.authorization
-   // console.log(token)
     var jwtDecode = Utils.decodeJwt(token)
-
-    
     if (jwtDecode != null) {
         findUser(jwtDecode.email).then((user) => {
-            if (typeof user == 'undefined') res.json("Non esiste un account associato all'email " + req.body.email)
-            else  {console.log("JWT corretto!") 
-            next()}
-
+            if (typeof user == constants.UNDEFINED) res.json(exceptionMsg.ERR_JWT_EMAIL + req.body.email).status(401)
+            else next()
         })
-    } else res.json("Jwt Errato!")
-
+    } else res.json(exceptionMsg.ERR_JWT)
 }
 

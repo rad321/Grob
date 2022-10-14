@@ -1,3 +1,4 @@
+import { constants, exceptionMsg } from "../constants/constants"
 import { findUser } from "../database/queries"
 import { Utils } from "../utils/utils"
 var validator = require('email-validator')
@@ -6,8 +7,8 @@ var validator = require('email-validator')
  * @param email 
  * @returns 
  */
-export const validateEmail = function (email) : boolean{
-     return validator.validate(email)
+export const validateEmail = function (email): boolean {
+    return validator.validate(email)
 
 
 }
@@ -17,16 +18,12 @@ export const validateEmail = function (email) : boolean{
  * @param res 
  * @param next 
  */
-export const checkEmailFormat = function(req,res,next){
+export const checkEmailFormat = function (req, res, next) {
 
-    if(validateEmail(req.body.email)){
-        console.log("Email Valida!")
-        next()
-    
-    }else{
-        res.json("Email non valida")
-        
-    }
+    if (validateEmail(req.body.email)) next()
+    else res.json("Email non valida")
+
+
 
 
 }
@@ -37,16 +34,11 @@ export const checkEmailFormat = function(req,res,next){
  * @param res 
  * @param next 
  */
-export const checkIfUserExist =  async function (req,res,next){
+export const checkIfUserExist = async function (req, res, next) {
 
     var user = await findUser(req.body.email)
-console.log(user.length)
-        if(user.length != 0) res.json("L'email " + req.body.email + " è già stata utilizzata per creare un account")
-        else {
-            console.log(req.body.email)
-            next()}
-
-   
+    if (user.length != 0) res.json(exceptionMsg.ERR_CREAZIONE_UTENZA)
+    else next()
 }
 
 /**
@@ -56,10 +48,9 @@ console.log(user.length)
  * @param res 
  * @param next 
  */
-export const checkUserEmail = function (req,res,next){
-
-    findUser(req.body.email).then((user)=>{
-        if(typeof user == 'undefined') res.json("Non esiste un account associato all'email " + req.body.email)
+export const checkUserEmail = function (req, res, next) {
+    findUser(req.body.email).then((user) => {
+        if (typeof user == constants.UNDEFINED) res.json(exceptionMsg.ERR_JWT_EMAIL + req.body.email)
         else next()
 
     })

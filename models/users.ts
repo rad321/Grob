@@ -1,11 +1,17 @@
+import { databaseConstants } from "../constants/constants";
+
 const { Model,DataTypes,Sequelize} = require('sequelize');
-const sequelize = new Sequelize('grobdb', 'alexdediu', 'progettopa', {
-    host: 'localhost',
-    dialect: 'postgres'
-  });
+var path = require("path")
+require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME,process.env.DB_PASSWORD, {
+    host: process.env.HOST,
+    dialect: process.env.DB_DIALECT
+});
 
 class users extends Model{}
-
+/**
+ * Model della tabella users
+ */
 export const user = users.init({
     id : {
         type: DataTypes.INTEGER,
@@ -39,7 +45,7 @@ export const user = users.init({
     timestamps:false,
     createdAt: false,
     updatedAt: false,
-    modelName: 'users' 
+    modelName: databaseConstants.USERS_TABLE 
   }
    
   )

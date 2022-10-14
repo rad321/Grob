@@ -15,8 +15,8 @@ CREATE TABLE boards(
     color VARCHAR(10),
     config TEXT,
     history TEXT,
-    startDate DATE,
+    startDate VARCHAR(20),
     level INTEGER,
-    win BOOLEAN
+    state VARCHAR(15)
   
 );
