@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes"
 import { constants, exceptionMsg } from "../constants/constants"
 import { findUser, findUserById } from "../database/queries"
 import { Utils } from "../utils/utils"
@@ -10,12 +11,11 @@ import { Utils } from "../utils/utils"
  */
 export const dateValidator = (req, res, next) => {
     const reqDate = req.body.date
-    console.log(Object.is(reqDate, undefined))
-  
     if (!Object.is(reqDate, undefined)) {
-        if (!Utils.dateValidator(reqDate)) res.json(exceptionMsg.ERR_RANGE_DATE).status(400)
+        if (!Utils.dateValidator(reqDate))
+            res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST, exceptionMsg.ERR_RANGE_DATE))
         else next()
-    }else next()
+    } else next()
 
 }
 /**
@@ -25,9 +25,9 @@ export const dateValidator = (req, res, next) => {
  * @param next 
  */
 export const checkSortType = (req, res, next) => {
-    if (req.body.sort != constants.ORD_ASCENDENTE && req.body.sort != constants.ORD_DISCENDENTE) res.json(exceptionMsg.ERR_CAMPO_SORT).status(400)
+    if (req.body.sort != constants.ORD_ASCENDENTE && req.body.sort != constants.ORD_DISCENDENTE)
+        res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST, exceptionMsg.ERR_CAMPO_SORT))
     else next()
-
 }
 /**
  * Funzione utilizzata per validare il campo credits del body
@@ -37,12 +37,14 @@ export const checkSortType = (req, res, next) => {
  */
 export const checkCredits = async (req, res, next) => {
     var data = await findUser(Utils.decodeJwt(req.headers.authorization).email)
-    if (data[0].dataValues.credits <= 0) res.json(exceptionMsg.CREDITO_INSUFFICIENTE).status(401)
+    if (data[0].dataValues.credits <= 0)
+        res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
     else next()
 }
-export const isAdmin = async (req,res,next) =>{
+export const isAdmin = async (req, res, next) => {
     var data = await findUserById(Utils.decodeJwt(req.headers.authorization).userid)
-    if(!data[0].dataValues.admin) res.json(exceptionMsg.ERR_ADMIN).status(401)
+    if (!data[0].dataValues.admin)
+        res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.ERR_ADMIN))
     else next()
 
 }

@@ -8,6 +8,7 @@ var path = require("path")
 var { addNewAccount } = require("../database/queries.ts");
 require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
 let games: Array<object> = new Array
+let totCost = boardConstants.DECR_CREATE_BOARD + boardConstants.DECR_MOVE
 
 /**
  * Creazione di un nuovo account
@@ -15,12 +16,7 @@ let games: Array<object> = new Array
  * @param pwd 
  */
 export function signUp(req, res) {
-    try {
-        addNewAccount(req);
-        res.json(successMsg.SIGNUP_EFFETTUATO)
-    } catch (err) {
-        console.log(err)
-    }
+    addNewAccount(req).then(() => res.json(Utils.getReasonPhrase(StatusCodes.OK,successMsg.SIGNUP_EFFETTUATO))) .catch((err) => res.json(Utils.getReasonPhrase(StatusCodes.CONFLICT,err)) )       
 }
 /**
  * Autenticazione e creazione della stringa JWT
@@ -36,11 +32,28 @@ export const login = (req, res) => {
  * @param req 
  */
 export const createNewGame = async (req, res) => {
-    let game = new chessEngine.Game();
-    if (req.body.color == boardConstants.PIECE_COLOR_BLACK) game.aiMove(req.params.level)
-    await addNewGame(Utils.createGameMap(req, game)).then(() => { res.json(successMsg.PARTITA_INIZIATA) }).catch((err) => {
-        res.json(exceptionMsg.ERR_CREAZIONE_PARTITA + err)
-    })
+    const game = new chessEngine.Game();
+    const userid = Utils.decodeJwt(req.headers.authorization).userid
+    if (req.body.color == boardConstants.PIECE_COLOR_BLACK) {
+        checkMinCredits(userid,game,req,res)
+    }
+}
+/**
+ * 
+ * @param userid 
+ * @param game 
+ * @param req 
+ * @param res 
+ */
+async function checkMinCredits(userid,game,req,res){
+    if (Utils.greaterOrEqual(Number(Utils.getCredits(userid)), totCost)) {
+        updateUserCredits(userid, Number(Utils.getCredits(userid)) - totCost)
+        game.aiMove(req.params.level)
+        await addNewGame(Utils.createGameMap(req, game)).then(() => { res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_INIZIATA)) }).catch((err) => {
+            res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.ERR_CREAZIONE_PARTITA + err))
+        })
+    } else
+         res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
 }
 /**
  * 
@@ -52,23 +65,39 @@ export const pieceMove = async (req, res) => {
     let userid = Utils.decodeJwt(req.headers.authorization).userid
     let board = data[0].dataValues
     let game = new chessEngine.Game(JSON.parse(board.config))
-    if (isStopped(board, userid)) updateBoardState(boardConstants.STATE_IN_PROGRESS, board.id)
+    if (isStopped(board, userid))
+        updateBoardState(boardConstants.STATE_IN_PROGRESS, board.id)
     // verifica se è il turno del player
     if (JSON.parse(board.config).turn == board.color) {
-        if (checkState(board, board.color, userid)) {
-            console.log("mov player")
-            game.move(req.body.from, req.body.to)
-            if (checkState(board, board.color, userid)) {
-                console.log("mov ai")
-                var aiMove = game.aiMove(board.level)
-                res.json(aiMove)
-            }
-        } else res.json(successMsg.PARTITA_CONCLUSA)
+        makeMovement(board,userid,game,req,res)
     }
-    // merge dello storico presente a db e dello storico delle mosse recenti
-    var merge: Array<Object> = JSON.parse(board.history).concat(game.getHistory())
-    updateBoard(game.exportJson(), merge, req.params.boardid)
+    updateBoard(game.exportJson(), JSON.parse(board.history).concat(game.getHistory()), req.params.boardid)
 }
+/**
+ * 
+ * @param board 
+ * @param userid 
+ * @param game 
+ * @param req 
+ * @param res 
+ */
+function makeMovement(board,userid,game,req,res){
+    if (checkState(board, board.color, userid)) {
+        game.move(req.body.from, req.body.to)
+        updateUserCredits(Number(Utils.getCredits(userid)) - boardConstants.DECR_MOVE, userid)
+        if (checkState(board, board.color, userid)) {
+            let aiMove = game.aiMove(board.level)
+            res.json(aiMove)
+        }
+    } else res.json(successMsg.PARTITA_CONCLUSA)
+}
+/**
+ * 
+ * @param board 
+ * @param userid 
+ * @returns 
+ */
+
 function isStopped(board, userid) {
     if (board.state == boardConstants.STATE_STOPPED) return true
     else return false
@@ -82,7 +111,6 @@ function isStopped(board, userid) {
  * @returns 
  */
 function checkState(board, color, id) {
-
     if (JSON.parse(board.config).checkMate && JSON.parse(board.config).turn == color) {
         updateConfig(boardConstants.STATE_WIN, id)
         updateBoardState(boardConstants.STATE_WIN, id)

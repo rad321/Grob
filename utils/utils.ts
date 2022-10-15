@@ -1,6 +1,6 @@
 import moment from "moment";
 import { boardConstants, dateConstants, exceptionMsg } from "../constants/constants";
-import { findUser } from "../database/queries";
+import { findUser, findUserById } from "../database/queries";
 var jwt = require('jsonwebtoken');
 var path = require("path")
 require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
@@ -98,6 +98,13 @@ static createRanking(ranking,type) {
 }
 static getReasonPhrase(statusCode, phrase){
     return { msg : statusCode+", "+ phrase}
+}
+static async getCredits(id){
+     return await findUserById(id)[0].dataValues.credits
+}
+static greaterOrEqual(a,b){
+    if ( a >= b ) return true
+    else return false
 }
 
 }
