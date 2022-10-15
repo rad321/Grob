@@ -61,7 +61,7 @@ app.get('/board/:boardid/info', jsonParser, checkEmailJwt, (req, res) => {
 /**
  * 
  */
-app.get('/boards/:boardid/abandoned', checkEmailJwt, (req, res) => {
+app.get('/boards/:boardid/abandoned', checkEmailJwt,checkGameState, (req, res) => {
     abandoned(req, res)
 })
 /**
