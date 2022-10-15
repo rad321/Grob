@@ -1,7 +1,6 @@
 export const databaseConstants ={
     BOARDS_TABLE : "boards",
     USERS_TABLE : "users"
-
 }
 export const dateConstants = {
     START_DATE : "01/01/2022",
@@ -17,21 +16,21 @@ export const boardConstants = {
     GAME_STATE : "state",
     STATE_STOPPED : "stopped",
     PIECE_COLOR_BLACK : "black",
+    PIECE_COLOR_WHITE : "white",
     STATE_WIN : "win",
     STATE_DEFEAT : "defeat",
     STATE_ABANDONED : "abandoned",
-    STATE_IN_PROGRESS : "ip"
-
-
-
-
+    STATE_IN_PROGRESS : "ip",
+    DECR_CREATE_BOARD : 0.40,
+    DECR_MOVE : 0.01,
+    DECR_STOPPED : 0.5,
+    INCR_WIN : 1
 }
 export const constants = {
     ORD_ASCENDENTE : "asc",
     ORD_DISCENDENTE : "desc",
     EMPTY_PARAM_BOARDID : ":boardid",
     UNDEFINED : 'undefined'
-
 }
 export const exceptionMsg = {
     UTENTE_INESISTENTE : "Utente inesistente, verifica le credenziali inserite",
@@ -41,6 +40,7 @@ export const exceptionMsg = {
     ERR_PARTITA_ABBANDONATA : "Non è possibile abbandonare la partita, è presente il seguente errore: ",
     ERR_CAMPO_COLOR : "Request errata, il campo 'color' può essere solo 'white' o 'black'",
     ERR_CAMPO_COLOR_TIPO : "Request errata,'color' deve essere una stringa",
+    ERR_REQUEST_COLOR : "Request errata, può contenere solo il campo 'color'",
     ERR_PARAM_BOARDID : "Il parametro 'boardid' è errato",
     ERR_MOSSA_NON_VALIDA : "mossa non valida, modificare lo spostamento",
     PARTITA_ABBANDONATA : "Questa partita è stata abbandonata, inserire un id diverso",
@@ -51,11 +51,10 @@ export const exceptionMsg = {
     ERR_JWT : "JWT errato, il payload presente nella stringa jwt non corrisponde ad alcuna utenza",
     ERR_CREAZIONE_UTENZA : "L'email inserita è già stata utilizzata per creare un account",
     ERR_STATO_STOPPED : "Lo partita è già stata interrotta",
-    BOARD_INESISTENTE : "L'id inserito non non corrisponde a nessuna Board",
     ERR_ADMIN : "Questa rotta può essere utilizzata solo con una utenza amministratore",
-    ERR_UPDATE_CREDITS : "La modifica dei crediti non è andata a buon fine, si è verificato il seguente errore: "
-    
-
+    ERR_UPDATE_CREDITS : "La modifica dei crediti non è andata a buon fine, si è verificato il seguente errore: ",
+    ERR_LIVELLO_INESISTENTE : "Il livello inserito è insistente, inserire un livello compreso tra 0 e 4",
+    ERR_EMAIL_NON_VALIDA : "Email non valida"
 }
 export const successMsg = {
     SIGNUP_EFFETTUATO : "Registrazione effettuata con successo!",
@@ -64,7 +63,4 @@ export const successMsg = {
     PARTITA_ABBANDONATA : "La partita è stata abbandonata",
     PARTITA_INTERROTTA : "La partita è stata interrotta",
     UPDATE_CREDITS : "La modifica dei crediti è avvenuta con successo"
-
-   
-
 }

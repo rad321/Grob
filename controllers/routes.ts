@@ -1,9 +1,9 @@
-import { checkEmailFormat, checkIfUserExist, checkUserEmail } from "../middleware/credentials-middleware";
+import { checkEmailFormat, checkIfUserExist } from "../middleware/credentials-middleware";
 import { checkEmailJwt } from "../middleware/jwt-middleware";
-import { checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqLength, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
-import { abandoned, createNewGame, findGame, findGames, getHistory, getRanking, login, pieceMove, setBoardState, updateCredits } from "./controller";
+import { checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
+import { abandoned, createNewGame, findGame, findGames, getHistory, getRanking, login, pieceMove, setBoardState } from "./controller";
 import { checkSortType, dateValidator, isAdmin } from "../middleware/middleware";
-import { abandonedGame, updateUserCredits } from "../database/queries";
+import { updateCredits } from "./admin-controller";
 const { signUp } = require('./controller.ts');
 var express = require('express');
 var body = require('body-parser');
@@ -21,7 +21,7 @@ app.post('/signUp', jsonParser, checkEmailFormat, checkIfUserExist, (req, res) =
 /**
  * Login con con verifica della stringa jwt
  */
-app.post('/signIn', jsonParser, checkEmailFormat, checkUserEmail, (req, res) => {
+app.post('/signIn', jsonParser, checkEmailFormat, checkIfUserExist, (req, res) => {
     login(req, res);
 })
 /**
@@ -29,13 +29,13 @@ app.post('/signIn', jsonParser, checkEmailFormat, checkUserEmail, (req, res) => 
  * 
  */
 
-app.post('/newGame/:level', jsonParser, checkGameLevel, checkEmailJwt, checkPlayerColor, checkReqLength, checkReqTypes, isReqUndefined, (req, res) => {
+app.post('/boards/newboard/:level', jsonParser, checkGameLevel, checkEmailJwt, checkPlayerColor, checkReqTypes, isReqUndefined, (req, res) => {
     createNewGame(req, res)
 })
 /**
  * Rotta per effettuare un movimento sulla scacchiera (nuova partita o partita sospesa)
  */
-app.post('/move/:boardid', jsonParser, checkEmailJwt, checkBoardId, checkGameState, checkPieceMove, (req, res) => {
+app.post('/boards/:boardid/move', jsonParser, checkEmailJwt, checkBoardId, checkGameState, checkPieceMove, (req, res) => {
     pieceMove(req, res)
 })
 /**
@@ -48,44 +48,40 @@ app.get('/boards/:boardid/history', checkEmailJwt, (req, res) => {
  * Rotta che restituisce lo stato di una partita
  */
 
-app.post('/boards/:boardid?', jsonParser, checkEmailJwt,dateValidator,checkOptionalBoardId, (req, res) => {
+app.post('/boards/:boardid?', jsonParser, checkEmailJwt, dateValidator, checkOptionalBoardId, (req, res) => {
     findGames(req, res)
 })
 /**
  * 
  */
 
-app.get('/game/:boardid', jsonParser, checkEmailJwt, (req, res) => {
+app.get('/board/:boardid/info', jsonParser, checkEmailJwt, (req, res) => {
     findGame(req, res)
 })
 /**
  * 
  */
-app.get('/abandoned/:boardid', checkEmailJwt, (req, res) => {
+app.get('/boards/:boardid/abandoned', checkEmailJwt, (req, res) => {
     abandoned(req, res)
 })
-
 /**
  * 
  * 
  */
-app.post('/ranking', jsonParser, checkSortType, (req, res) => {
+app.post('/users/ranking', jsonParser, checkSortType, (req, res) => {
     getRanking(req, res)
-
 })
 /**
  * 
  */
-app.get('/stopped/:boardid',checkEmailJwt,checkBoardId,(req, res) => {
-    setBoardState(req,res)
-
+app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
+    setBoardState(req, res)
 })
 /**
  * 
  */
-app.post('/admin',isAdmin, (req, res) => {
-    updateCredits(req,res)
-
+app.post('/admin', isAdmin, (req, res) => {
+    updateCredits(req, res)
 })
 
 

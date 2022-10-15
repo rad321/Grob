@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes"
 import { constants, exceptionMsg } from "../constants/constants"
 import { findUser } from "../database/queries"
 import { Utils } from "../utils/utils"
@@ -12,9 +13,9 @@ export const checkEmailJwt = (req, res, next) => {
     var jwtDecode = Utils.decodeJwt(token)
     if (jwtDecode != null) {
         findUser(jwtDecode.email).then((user) => {
-            if (typeof user == constants.UNDEFINED) res.json(exceptionMsg.ERR_JWT_EMAIL + req.body.email).status(401)
+            if (typeof user == constants.UNDEFINED) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED,exceptionMsg.ERR_JWT_EMAIL + req.body.email))
             else next()
         })
-    } else res.json(exceptionMsg.ERR_JWT)
+    } else res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED,exceptionMsg.ERR_JWT))
 }
 

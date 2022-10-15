@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes"
 import { constants, exceptionMsg } from "../constants/constants"
 import { findUser } from "../database/queries"
 import { Utils } from "../utils/utils"
@@ -9,8 +10,6 @@ var validator = require('email-validator')
  */
 export const validateEmail = function (email): boolean {
     return validator.validate(email)
-
-
 }
 /**
  * Middleware che verifica la validità delle credenziali inserite dall'utente
@@ -19,13 +18,8 @@ export const validateEmail = function (email): boolean {
  * @param next 
  */
 export const checkEmailFormat = function (req, res, next) {
-
     if (validateEmail(req.body.email)) next()
-    else res.json("Email non valida")
-
-
-
-
+    else res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST,exceptionMsg.ERR_EMAIL_NON_VALIDA))
 }
 /**
  * Middleware che verifica se le credenziali sono presenti nel database.
@@ -35,23 +29,8 @@ export const checkEmailFormat = function (req, res, next) {
  * @param next 
  */
 export const checkIfUserExist = async function (req, res, next) {
-
     var user = await findUser(req.body.email)
-    if (user.length != 0) res.json(exceptionMsg.ERR_CREAZIONE_UTENZA)
+    if (user.length != 0) res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT,exceptionMsg.ERR_CREAZIONE_UTENZA))
     else next()
 }
 
-/**
- * Middleware che verifica se le credenziali sono presenti nel database.
- * Utilizzato durante il login.
- * @param req 
- * @param res 
- * @param next 
- */
-export const checkUserEmail = function (req, res, next) {
-    findUser(req.body.email).then((user) => {
-        if (typeof user == constants.UNDEFINED) res.json(exceptionMsg.ERR_JWT_EMAIL + req.body.email)
-        else next()
-
-    })
-}

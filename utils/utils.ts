@@ -96,4 +96,8 @@ static createRanking(ranking,type) {
     })
     return list
 }
+static getReasonPhrase(statusCode, phrase){
+    return { msg : statusCode+", "+ phrase}
+}
+
 }

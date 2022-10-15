@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import { boardConstants, constants, exceptionMsg, successMsg } from "../constants/constants";
 import { abandonedGame, addNewGame, findAllUsers, findGameByBoardId, findGamesByDate, findGamesByUserId, findUser, findUserById, updateBoard, updateBoardState, updateUserCredits, updateUserDef, updateUserWin } from "../database/queries";
 import { Utils } from "../utils/utils";
@@ -6,7 +7,7 @@ var chessEngine = require('js-chess-engine');
 var path = require("path")
 var { addNewAccount } = require("../database/queries.ts");
 require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
-var games: Array<object> = new Array<object>
+let games: Array<object> = new Array
 
 /**
  * Creazione di un nuovo account
@@ -18,7 +19,7 @@ export function signUp(req, res) {
         addNewAccount(req);
         res.json(successMsg.SIGNUP_EFFETTUATO)
     } catch (err) {
-        console.log("errore : " + err)
+        console.log(err)
     }
 }
 /**
@@ -51,7 +52,7 @@ export const pieceMove = async (req, res) => {
     let userid = Utils.decodeJwt(req.headers.authorization).userid
     let board = data[0].dataValues
     let game = new chessEngine.Game(JSON.parse(board.config))
-    if(isStopped(board,userid)) updateBoardState(boardConstants.STATE_IN_PROGRESS,board.id)
+    if (isStopped(board, userid)) updateBoardState(boardConstants.STATE_IN_PROGRESS, board.id)
     // verifica se è il turno del player
     if (JSON.parse(board.config).turn == board.color) {
         if (checkState(board, board.color, userid)) {
@@ -68,11 +69,11 @@ export const pieceMove = async (req, res) => {
     var merge: Array<Object> = JSON.parse(board.history).concat(game.getHistory())
     updateBoard(game.exportJson(), merge, req.params.boardid)
 }
-  function isStopped(board,userid){
-    if(board.state == boardConstants.STATE_STOPPED) return true
+function isStopped(board, userid) {
+    if (board.state == boardConstants.STATE_STOPPED) return true
     else return false
 
- }
+}
 /**
  * 
  * @param board 
@@ -111,16 +112,15 @@ async function updateConfig(state, id) {
  * @param res 
  */
 export const findGames = async (req, res) => {
-    console.log("CIAO")
     if (req.params.boardid == constants.EMPTY_PARAM_BOARDID) {
         if (req.body.date != undefined) {
             let gamesByDate = await findGamesByDate(req)
             if (gamesByDate.length == 0) res.json(exceptionMsg.PARTITE_INESISTENTI_BY_DATE).status(404)
-            else res.json(setResponseItems(games, gamesByDate))
+            else res.status(StatusCodes.OK).json(setResponseItems(games, gamesByDate))
         }
         else {
             var data = await findGamesByUserId(Utils.decodeJwt(req.headers.authorization).userid)
-            res.json(setResponseItems(games, data))
+            res.status(StatusCodes.OK).json(setResponseItems(games, data))
         }
     } else {
         let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
@@ -184,16 +184,10 @@ export const abandoned = async (req, res) => {
 export const getHistory = async (req, res) => {
     let moves: Array<object> = new Array<object>()
     let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
-    let history = JSON.parse(data[0].dataValues.history)
-    history.forEach(item => {
-        var info = {
-            from: item.from,
-            to: item.to
-        }
-        moves.push(info)
-    })
-    res.json(moves)
+    JSON.parse(data[0].dataValues.history).forEach(item => { moves.push({ from: item.from, to: item.to }) })
+    res.status(StatusCodes.OK).json(moves)
 }
+
 /**
  * 
  * @param req 
@@ -202,17 +196,16 @@ export const getHistory = async (req, res) => {
 export const getRanking = async (req, res) => {
     let ranking = new Array()
     let users = await findAllUsers()
-    if (users.length != 0) {
-        users.forEach(item => {
-            var info = {
-                id: item.dataValues.id,
-                email: item.dataValues.email,
-                wins: item.dataValues.wins
-            }
-            ranking.push(info)
-        })
-    }
-    res.json(sortUsers(ranking, req.body.sort))
+    if (users.length != 0) users.forEach(item => { ranking.push(createInfoJson(item)) })
+    res.status(StatusCodes.OK).json(sortUsers(ranking, req.body.sort))
+}
+/**
+ * 
+ * @param item 
+ * @returns 
+ */
+function createInfoJson(item) {
+    return { id: item.dataValues.id, email: item.dataValues.email, wins: item.dataValues.wins }
 }
 /**
  * 
@@ -231,21 +224,14 @@ function sortUsers(ranking, sortType) {
  * @param res 
  */
 export const setBoardState = async (req, res) => {
-    var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
-    if (data[0].dataValues.state != boardConstants.STATE_STOPPED){
-        let userid = Utils.decodeJwt(req.headers.authorization).userid
+    let userid = Utils.decodeJwt(req.headers.authorization).userid
+    var data = await findGameByBoardId(req.params.boardid, userid)
+    if (data[0].dataValues.state != boardConstants.STATE_STOPPED) {
         let user = await findUserById(userid)
-        let cost: number = 0.40
-        let credits: number = Number(user[0].dataValues.credits) - cost
+        let credits: number = Number(user[0].dataValues.credits) - boardConstants.DECR_STOPPED
         await updateUserCredits(credits, userid)
         await updateBoardState(boardConstants.STATE_STOPPED, req.params.boardid)
-    } else res.json(exceptionMsg.ERR_STATO_STOPPED)
-}
-export const updateCredits = async (req,res) =>{
-    let user = await findUser(req.body.email)
-    updateUserCredits(req.body.credits,user[0].dataValues.id)
-    .then(()=> res.json(successMsg.UPDATE_CREDITS)).catch((err) =>exceptionMsg.ERR_UPDATE_CREDITS + err)
-
+    } else res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.ERR_STATO_STOPPED))
 }
 
 
