@@ -35,7 +35,7 @@ export const login = (req, res) => {
  * @param req 
  */
 export const createNewGame = async (req, res) => {
-    var game = new chessEngine.Game();
+    let game = new chessEngine.Game();
     if (req.body.color == boardConstants.PIECE_COLOR_BLACK) game.aiMove(req.params.level)
     await addNewGame(Utils.createGameMap(req, game)).then(() => { res.json(successMsg.PARTITA_INIZIATA) }).catch((err) => {
         res.json(exceptionMsg.ERR_CREAZIONE_PARTITA + err)
@@ -47,10 +47,10 @@ export const createNewGame = async (req, res) => {
  * @param res 
  */
 export const pieceMove = async (req, res) => {
-    var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
-    var userid = Utils.decodeJwt(req.headers.authorization).userid
-    var board = data[0].dataValues
-    var game = new chessEngine.Game(JSON.parse(board.config))
+    let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+    let userid = Utils.decodeJwt(req.headers.authorization).userid
+    let board = data[0].dataValues
+    let game = new chessEngine.Game(JSON.parse(board.config))
     if(isStopped(board,userid)) updateBoardState(boardConstants.STATE_IN_PROGRESS,board.id)
     // verifica se è il turno del player
     if (JSON.parse(board.config).turn == board.color) {
@@ -114,7 +114,7 @@ export const findGames = async (req, res) => {
     console.log("CIAO")
     if (req.params.boardid == constants.EMPTY_PARAM_BOARDID) {
         if (req.body.date != undefined) {
-            var gamesByDate = await findGamesByDate(req)
+            let gamesByDate = await findGamesByDate(req)
             if (gamesByDate.length == 0) res.json(exceptionMsg.PARTITE_INESISTENTI_BY_DATE).status(404)
             else res.json(setResponseItems(games, gamesByDate))
         }
@@ -123,7 +123,7 @@ export const findGames = async (req, res) => {
             res.json(setResponseItems(games, data))
         }
     } else {
-        var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+        let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
         res.json(Utils.createJsonGameInfo(data[0].dataValues))
     }
 }
@@ -146,7 +146,7 @@ function setResponseItems(items: Array<object>, data) {
  * @param res 
  */
 export const findGame = async (req, res) => {
-    var game = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+    let game = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
     res.json(createGameJsonResponse(game))
 }
 /**
@@ -165,9 +165,7 @@ function createGameJsonResponse(game) {
             turn: config.turn,
             abandoned: (game[0].dataValues.state == boardConstants.STATE_ABANDONED ? true : false)
         }
-
     }
-
 }
 /**
  * 
@@ -184,9 +182,9 @@ export const abandoned = async (req, res) => {
  * @param res 
  */
 export const getHistory = async (req, res) => {
-    var moves: Array<object> = new Array<object>()
-    var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
-    var history = JSON.parse(data[0].dataValues.history)
+    let moves: Array<object> = new Array<object>()
+    let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+    let history = JSON.parse(data[0].dataValues.history)
     history.forEach(item => {
         var info = {
             from: item.from,
@@ -195,7 +193,6 @@ export const getHistory = async (req, res) => {
         moves.push(info)
     })
     res.json(moves)
-
 }
 /**
  * 
@@ -203,8 +200,8 @@ export const getHistory = async (req, res) => {
  * @param res 
  */
 export const getRanking = async (req, res) => {
-    var ranking = new Array()
-    var users = await findAllUsers()
+    let ranking = new Array()
+    let users = await findAllUsers()
     if (users.length != 0) {
         users.forEach(item => {
             var info = {
@@ -236,16 +233,16 @@ function sortUsers(ranking, sortType) {
 export const setBoardState = async (req, res) => {
     var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
     if (data[0].dataValues.state != boardConstants.STATE_STOPPED){
-        var userid = Utils.decodeJwt(req.headers.authorization).userid
-        var user = await findUserById(userid)
-        var cost: number = 0.40
-        var credits: number = Number(user[0].dataValues.credits) - cost
+        let userid = Utils.decodeJwt(req.headers.authorization).userid
+        let user = await findUserById(userid)
+        let cost: number = 0.40
+        let credits: number = Number(user[0].dataValues.credits) - cost
         await updateUserCredits(credits, userid)
         await updateBoardState(boardConstants.STATE_STOPPED, req.params.boardid)
     } else res.json(exceptionMsg.ERR_STATO_STOPPED)
 }
 export const updateCredits = async (req,res) =>{
-    var user = await findUser(req.body.email)
+    let user = await findUser(req.body.email)
     updateUserCredits(req.body.credits,user[0].dataValues.id)
     .then(()=> res.json(successMsg.UPDATE_CREDITS)).catch((err) =>exceptionMsg.ERR_UPDATE_CREDITS + err)
 

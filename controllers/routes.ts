@@ -41,18 +41,14 @@ app.post('/move/:boardid', jsonParser, checkEmailJwt, checkBoardId, checkGameSta
 /**
  * Rotta per ottenere lo storico di una partita
  */
-app.get('/history/:boardid', checkEmailJwt, (req, res) => {
+app.get('/boards/:boardid/history', checkEmailJwt, (req, res) => {
     getHistory(req, res)
-
-
-
-
 })
 /**
  * Rotta che restituisce lo stato di una partita
  */
 
-app.post('/games/:boardid?', jsonParser, checkEmailJwt,dateValidator,checkOptionalBoardId, (req, res) => {
+app.post('/boards/:boardid?', jsonParser, checkEmailJwt,dateValidator,checkOptionalBoardId, (req, res) => {
     findGames(req, res)
 })
 /**
