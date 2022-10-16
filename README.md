@@ -108,7 +108,7 @@ Di seguito vengono riportate le possibili richieste:
 > **POST** /boards/newboard/:level
  
  Utilizzando questa rotta è possibile creare una nuova partita, passando come parametro il livello a cui desidera giocare.
- La descrizione dei livelli di difficoltà è descritta (qui) [https://www.npmjs.com/package/js-chess-engine#computer-ai]
+ La descrizione dei livelli di difficoltà è descritta (qui)[https://www.npmjs.com/package/js-chess-engine#computer-ai]
 
  
   #### Esempio di request
@@ -132,7 +132,7 @@ La response è un messaggio di conferma/errore di inizio partita.
 > **POST** /boards/:boardid/move
  
  Utilizzando questa rotta è possibile effettuare un movimento sulla scacchiera.
- I possibili movimenti sono indicati nella (board configuration) [https://www.npmjs.com/package/js-chess-engine#board-configuration]
+ I possibili movimenti sono indicati nella (board configuration)[https://www.npmjs.com/package/js-chess-engine#board-configuration]
 
   ### Esempio di request
  
@@ -155,7 +155,7 @@ La response è la mossa dell' intelligenza artificiale
 > **POST** /boards/:boardid?
  
  Utilizzando questa rotta è possibile ottenere tutte le partite giocate da un determinato utente ed alcune informazioni.
- I possibili movimenti sono indicati nella (board configuration) [https://www.npmjs.com/package/js-chess-engine#board-configuration]
+ I possibili movimenti sono indicati nella (board configuration)[https://www.npmjs.com/package/js-chess-engine#board-configuration]
 
  #### Esempio di request
  Il formato della data deve essere **DD/MM/YYYY**
