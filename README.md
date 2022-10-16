@@ -39,35 +39,29 @@ Si realizzi un sistema che consenta di gestire il gioco di scacchi. In particola
 - Si chiede di gestire eventuali errori mediante gli strati middleware sollevando le opportune eccezioni.
 - Si chiede di commentare opportunamente il codice.
 
-## COSA SI PUO' FARE?
-### Diagramma dei casi d'uso dell'utente:
-<p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-user.jpg" width="750" height="600"> 
- </p>
- 
- ### Diagramma dei casi d'uso dell'amministratore:
- <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="550" height="280"> 
- </p>
-
-
-
-
-## ROUTES
+## PROGETTAZIONE
+ ### ROTTE
 Le richieste vengono effettuate con [POSTMAN](https://www.postman.com/).
 Di seguito vengono riportate le possibili richieste:
 |ROTTA | BODY | TIPO | 
 |---|---|---|
-| /login |Email e password |POST|
-|/model|Modello da creare |POST|
-|/model/:modelid/:version?|Start,goal |POST|
-|/model/:modelid|Arco e peso da modifica |PUT|
-|/admin|Email dell'utente e nuovi crediti |PUT|
-|/filters/:modelid|Data,numero di nodi,numero di archi |POST|
+| /signUp |email, pwd  |POST|
+| /signIn |email, pwd |POST|
+|/boards/newboard/:level |color |POST|
+|/boards/:boardid/move |from,to |POST|
+|/boards/:boardid?| date (facoltativo) |POST|
+|/boards/:boardid| |GET|
+|/boards/:boardid/abandoned | |GET|
+|/boards/:boardid/history | |GET|
+|/boards/:boardid/stopped | |GET|
+|/boards/:boardid/stopped | |GET|
+|/users/admin |email,credits |PUT|
+|/users/ranking | sort |POST|
+ 
 
  ### Descrizione delle rotte
  
- > **POST** /login
+ > **POST** /signUp
  
  Utilizzando questa rotta è possibile ottenere un [Json Web Token](https://jwt.io/) composto dalla chiave segreta e dai dati inseriti nella request (email,password)
  
@@ -111,95 +105,26 @@ Di seguito vengono riportate le possibili richieste:
  
 
 
- > **POST** /model/:modelid/:version?
+ ## DIAGRAMMI UML
+ ###DIAGRAMMI DEI CASI D'USO
+- Diagramma dei casi d'uso dell'utente:
+<p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-user.jpg" width="750" height="600"> 
+ </p>
  
- Utilizzando questa rotta è possibile esegurie un modello inserendo come parametri in numero identiicativo del modello e la versione (non abbligatorio),
- il body della richiesta è composto da due valori che rappresentano il nodo di partenza ed il nodo di arrivo.
- La response è composta da un array contente il percorso (che ha come estremi i dati inseriti nel body) ed il costo (in termini di peso degli archi).
- 
- ### Esempio di body
- ```
-{
-    "start" : "A",
-    "goal" : "G"
-}
- ```
- ### Esempio di response
-
- ```
-{
-    "path": [
-        "A",
-        "G"
-    ],
-    "cost": 2
-}
- ```
- 
- > **PUT** /model/:modelid
- 
- Utilizzando questa rotta è possibile modificare il peso di uno o più archi di un modello.
- Il numero identificativo del modello viene inserito come parametro nella rotta, nel body della richiesta è necessario inserire gli archi con i rispettivi pesi    aggiornati
- 
- 
-
- ### Esempio di body
- ```
-{  
-    "R": {
-        "N":19.6
-    
-    }   
-}
- ```
- ### Esempio di Response
- ```
-"Modifiche effettuate con successo per il modello n.7"
-
- ```
- > **PUT** /admin
- 
- da finire
- 
- ### Esempio di body
- ```
-{
-    "email":"prova@progettopa.it",
-    "credits":39
-}
- ```
- ### Esempio di Response
- ```
-"Il credito è stato aggiornato con successo"
-
- ```
- > **POST** /filters/:modelid
- da finire
- 
-  ### Esempio di body
- ```
-{
-    "date" : [
-        "2022-08-22",
-        "2022-08-30"
-    ],
-    "numNodes" :8,
-    "numEdges":6
-    
-    
-}
- ```
- ### Esempio di Response
- ```
-[
-    "{\"A\":{\"B\":1,\"C\":2,\"F\":6,\"L\":9},\"R\":{\"A\":6,\"N\":4}}",
-    "{\"A\":{\"B\":1,\"C\":2,\"F\":6,\"L\":9},\"R\":{\"A\":6,\"N\":10}}",
-    "{\"A\":{\"B\":1,\"C\":2,\"F\":6,\"L\":9},\"R\":{\"A\":6,\"N\":13.84}}"
-]
- ```
+ - Diagramma dei casi d'uso dell'amministratore:
+ <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="550" height="280"> 
+ </p>
+ ### DIAGRAMMI DELLE SEQUENZE
+ -------
+ ### DIAGRAMMI DEI PACKAGE
+ -------
  
  ## Design Pattern
- ### M(V)C
+ ### SINGLETON
+ ------
+ ### MC
  Per lo sviluppo dell'applicazione è stato utilizzato il pattern M(V)C, che consente di suddividere il progetto in 2 parti:
  
 *  Models
