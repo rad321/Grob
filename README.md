@@ -5,31 +5,37 @@
 In questo progetto è presente un back-end che implementa il gioco degli scacchi.Il codice è stato realizzato con l'utilizzo di NODEJS del modulo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a>,necessario per gestire tutti i possibile eventi generati dal utente.
 Gli obiettivi di realizzazione sono: 
 Si realizzi un sistema che consenta di gestire il gioco di scacchi. In particolare, il sistema si basa sul un utente (sempre autenticato con JWT) che gioca contro l’intelligenza artificiale. Ci possono essere più partite attive in un dato momento. Un utente può allo stesso tempo partecipare ad una ed una sola partita.
-•	Dare la possibilità di creare una nuova partita seguendo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a> ; la partita può essere:
-o	Utente contro intelligenza artificiale (IA) scegliendo il livello di difficoltà.
+•	Dare la possibilità di creare una nuova partita seguendo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a> ; 
+ la partita può essere:
+1.	Utente contro intelligenza artificiale (IA) scegliendo il livello di difficoltà.
+ 
 •	In particolare, è necessario validare la richiesta di creazione della partita. Per ogni partita viene addebitato un numero di token in accordo con quanto segue:
-	0.40 all’atto della creazione
-	0.01 per ogni mossa (anche IA)
-o	Il modello può essere creato se c’è credito sufficiente ad esaudire la richiesta (se il credito durante la partita scende sotto lo zero si può continuare comunque).
+1.	0.40 all’atto della creazione
+2.	0.01 per ogni mossa (anche IA)
+3.	Il modello può essere creato se c’è credito sufficiente ad esaudire la richiesta (se il credito durante la partita scende sotto lo zero si può continuare comunque).
+ 
 •	Creare la rotta per effettuare una mossa in una data partita verificando se questa è ammissibile o meno (si consiglia di valutare quanto presente in Board Configuration – JSON)
 
-•	Creare una rotta per verificare le partite svolte riportando se sono state vinte o perse il numero di mosse totali, filtrando anche per data di avvio della partita (si ponga attenzione alla validazione delle date)
+•	Creare una rotta per verificare le partite svolte riportando se sono state vinte o perse il numero di mosse totali,filtrando anche per data di avvio della partita (si ponga attenzione alla validazione delle date)
+ 
 •	Creare una rotta per valutare lo stato di una data partita (di chi è il turno, se è terminata, scacco, scacco matto,…); una partita si considera chiusa quando:
-o	C’è uno scacco matto.
-o	L’utente abbandona.
-o	Per ogni partita vinta al giocatore si dà 1 punto; per ogni partita interrotta -0.5 punti;
+1.	C’è uno scacco matto.
+2. L’utente abbandona.
+3.	Per ogni partita vinta al giocatore si dà 1 punto; per ogni partita interrotta -0.5 punti;
+ 
 •	Creare una rotta per restituire lo storico delle mosse di una data partita con la possibilità di esportare in formato JSON
 •	Restituire la classifica dei giocatori dando la possibilità di scegliere l’ordinamento ascendente / discendente. Questa rotta è pubblica e non deve essere autenticata.
+ 
 Le richieste devono essere validate (es. utente che scelga un evento che non esistente).
 Ogni utente autenticato (ovvero con JWT) ha un numero di token (valore iniziale impostato nel seed del database). 
 Nel caso di token terminati ogni richiesta da parte dello stesso utente deve restituire 401 Unauthorized. 
-Prevedere una rotta per l’utente con ruolo admin che consenta di effettuare la ricarica per un utente fornendo la mail ed il nuovo “credito” (sempre mediante JWT). I token JWT devono contenere i dati essenziali.
+Prevedere una rotta per l’utente con ruolo admin che consenta di effettuare la ricarica per un utente fornendo la mail ed il nuovo “credito” (sempre mediante JWT).
+I token JWT devono contenere i dati essenziali.
 Il numero residuo di token deve essere memorizzato nel db sopra citato.
 Si deve prevedere degli script di seed per inizializzare il sistema.
 Si chiede di utilizzare le funzionalità di middleware.
 Si chiede di gestire eventuali errori mediante gli strati middleware sollevando le opportune eccezioni.
 Si chiede di commentare opportunamente il codice.
-![image](https://user-images.githubusercontent.com/64791230/196047191-0d2c2597-cdfb-4f02-a5fd-45d0e5bb148d.png)
 
 ## COSA SI PUO' FARE?
 Diagramma dei casi d'uso:
