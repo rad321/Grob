@@ -79,6 +79,7 @@ Di seguito vengono riportate le possibili richieste:
 {
     "msg": "200, Registrazione effettuata con successo!"
 }
+  ```
  
  > **POST** /signIn
  
