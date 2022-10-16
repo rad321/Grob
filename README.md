@@ -65,7 +65,7 @@ Di seguito vengono riportate le possibili richieste:
  
  Utilizzando questa rotta è possibile ottenere un [Json Web Token](https://jwt.io/) composto dalla chiave segreta e dai dati inseriti nella request (email,password)
  
-  ### Esempio di request
+  #### Esempio di request
  
  ```
 {
