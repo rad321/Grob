@@ -1,5 +1,7 @@
-# Grob
 
+<p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/public/img/logo.png" width="750" height="600"> 
+ </p>
 
 ## OBIETTIVO DEL PROGETTO
 In questo progetto è presente un back-end che implementa il gioco degli scacchi. Il codice è stato realizzato con l'utilizzo di [Node.js](https://nodejs.org/en/) e del modulo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a>, necessario per gestire tutti i possibile eventi generati dal utente.
