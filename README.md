@@ -132,7 +132,7 @@ La response è un messaggio di conferma/errore di inizio partita.
 > **POST** /boards/:boardid/move
  
  Utilizzando questa rotta è possibile effettuare un movimento sulla scacchiera.
- I possibili movimenti sono indicati nella (board configuration)[https://www.npmjs.com/package/js-chess-engine#board-configuration]
+ I possibili movimenti sono indicati nella [board configuration](https://www.npmjs.com/package/js-chess-engine#board-configuration)
 
   ### Esempio di request
  
@@ -155,7 +155,7 @@ La response è la mossa dell' intelligenza artificiale
 > **POST** /boards/:boardid?
  
  Utilizzando questa rotta è possibile ottenere tutte le partite giocate da un determinato utente ed alcune informazioni.
- I possibili movimenti sono indicati nella (board configuration)[https://www.npmjs.com/package/js-chess-engine#board-configuration]
+ I possibili movimenti sono indicati nella [board configuration](https://www.npmjs.com/package/js-chess-engine#board-configuration)
 
  #### Esempio di request
  Il formato della data deve essere **DD/MM/YYYY**
@@ -191,7 +191,7 @@ La response è la mossa dell' intelligenza artificiale
   > **GET** /boards/:boardid/info
  
  Utilizzando questa rotta è possibile ottenere lo stato di una partita.
- i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
+ i possibili stati sono ripartati nella [sezione successiva](#stati di una partita)
 
 
 #### Esempio di response
@@ -224,7 +224,7 @@ La response è la mossa dell' intelligenza artificiale
  > **GET** /boards/:boardid/stopped
  
  Utilizzando questa rotta è possibile interrompere una partita, impostando lo stato ad 'stopped'
- i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
+ i possibili stati sono ripartati nella [sezione successiva](#stati di una partita)
 
 
 #### Esempio di response
@@ -322,8 +322,8 @@ La response è la mossa dell' intelligenza artificiale
 
 
 
-
- ## DIAGRAMMI UML
+##STATI DELLA PARTITA
+## DIAGRAMMI UML
  ###DIAGRAMMI DEI CASI D'USO
 - Diagramma dei casi d'uso dell'utente:
 <p align="center" style="margin-top: 10px;">
