@@ -3,7 +3,7 @@
 ## INTRODUZIONE
 
 <p align="center" style="margin-top: 10px;">
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgiphy.com%2Fexplore%2Fchess-move&psig=AOvVaw0FOwmKn0J-QSSYqax000wD&ust=1666022860535000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCIjjhviQ5foCFQAAAAAdAAAAABAP" width="400" height="300"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/public/img/chess.gif?raw=true" width="400" height="300"> 
  </p>
 
 ## OBIETTIVO DEL PROGETTO
