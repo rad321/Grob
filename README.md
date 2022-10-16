@@ -73,7 +73,7 @@ Di seguito vengono riportate le possibili richieste:
     "pwd": "progettopa"
 }
  ```
- ### Esempio di response
+ #### Esempio di response
  
  ```
 {
@@ -86,7 +86,7 @@ Di seguito vengono riportate le possibili richieste:
  Utilizzando questa rotta è possibile effettuare il login per ottenere la stringa JWT.
 
  
-  ### Esempio di request
+  #### Esempio di request
  
  ```
  {
@@ -94,7 +94,7 @@ Di seguito vengono riportate le possibili richieste:
     "pwd": "carlo"
 }
  ```
- ### Esempio di response
+ #### Esempio di response
  
  Con la response di questa rotta è possibile accedere a tutti i dati associati all'utenza presente nel payload.
  
@@ -111,7 +111,7 @@ Di seguito vengono riportate le possibili richieste:
  La descrizione dei livelli di difficoltà è descritta (qui)[https://www.npmjs.com/package/js-chess-engine#computer-ai]
 
  
-  ### Esempio di request
+  #### Esempio di request
  
  Questo campo indica il colore con cui si vuole iniziare la partita
  
@@ -120,7 +120,7 @@ Di seguito vengono riportate le possibili richieste:
     "color": "white"
 }
  ```
- ### Esempio di response
+ #### Esempio di response
  
 La response è un messaggio di conferma/errore di inizio partita.
  
@@ -142,7 +142,7 @@ La response è un messaggio di conferma/errore di inizio partita.
     "to": "E6"
 }
  ```
- ### Esempio di response
+ #### Esempio di response
  
 La response è la mossa dell' intelligenza artificiale
  
@@ -157,14 +157,14 @@ La response è la mossa dell' intelligenza artificiale
  Utilizzando questa rotta è possibile ottenere tutte le partite giocate da un determinato utente ed alcune informazioni.
  I possibili movimenti sono indicati nella (board configuration)[https://www.npmjs.com/package/js-chess-engine#board-configuration]
 
-  ### Esempio di request
+ #### Esempio di request
  Il formato della data deve essere **DD/MM/YYYY**
  ```
 {
     date : "12/10/2022"
 }
  ```
- ### Esempio di response
+#### Esempio di response
  
  
  ```
@@ -194,7 +194,7 @@ La response è la mossa dell' intelligenza artificiale
  i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
 
 
- ### Esempio di response
+#### Esempio di response
  
  
  ```
@@ -212,7 +212,7 @@ La response è la mossa dell' intelligenza artificiale
  i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
 
 
- ### Esempio di response
+#### Esempio di response
  
  
  ```
@@ -227,7 +227,7 @@ La response è la mossa dell' intelligenza artificiale
  i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
 
 
- ### Esempio di response
+#### Esempio di response
  
  
  ```
@@ -240,7 +240,7 @@ La response è la mossa dell' intelligenza artificiale
  
  Utilizzando questa rotta è possibile ottenere lo storico delle mosse di una partita.
 
- ### Esempio di response
+#### Esempio di response
  
  
  ```
@@ -261,7 +261,7 @@ La response è la mossa dell' intelligenza artificiale
  Utilizzando questa rotta è possibile ottenere la classifica dei giocati, passando nel body il tipo di ordinamento.
  L'ordinamento può essere credesce (asc) o descrescente (desc)
  
-  ### Esempio di request
+ #### Esempio di request
  
   ```
  {
@@ -269,7 +269,7 @@ La response è la mossa dell' intelligenza artificiale
 }
   ```
 
- ### Esempio di response 
+#### Esempio di response 
  ```
 [
     {
@@ -304,7 +304,7 @@ La response è la mossa dell' intelligenza artificiale
  Utilizzando questa rotta è possibile incrementare o descrementare il credito di un utente.
  Questa rotta è accessibile solo se l'utenza è di tipo 'admin'
  
-  ### Esempio di request
+ #### Esempio di request
  
   ```
  {
@@ -312,7 +312,7 @@ La response è la mossa dell' intelligenza artificiale
     "credits" : 5
 }
   ```
-   ### Esempio di response
+ #### Esempio di response
  
   ```
  {
