@@ -342,7 +342,7 @@ La response è la mossa dell' intelligenza artificiale
  ## Design Pattern
  ### SINGLETON
   <p align="center" style="margin-top: 10px;">
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Frefactoring.guru%2Fdesign-patterns%2Fsingleton&psig=AOvVaw39ismmG29ROWE-HlB_xjhf&ust=1666041109976000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCLCG_PXU5foCFQAAAAAdAAAAABAK"width="700" height="300"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/public/img/singleton.png"width="600" height="300"> 
  </p>
  ### MC
  Per lo sviluppo dell'applicazione è stato utilizzato il pattern M(V)C, che consente di suddividere il progetto in 2 parti:
