@@ -351,7 +351,7 @@ La response è la mossa dell' intelligenza artificiale
   - Nuova partita
  
   <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/UML/newBoard.jpg" width="800" height="280"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/newGame.jpg" width="800" height="280"> 
  </p>
  
   - Stato di una partita
@@ -360,15 +360,34 @@ La response è la mossa dell' intelligenza artificiale
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/infoBoard.jpg" width="800" height="280"> 
  </p>
  
-  - Storico delle mosse
+  - Tutte le partite
  
   <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/UML/history.jpg" width="800" height="280"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/allBoards.jpg" width="800" height="280"> 
  </p>
  
+  - Spostamento sulla scacchiera
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/pieceMove.jpg" width="800" height="280"> 
+ </p>
+  - Classsifica giocatori
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/ranking.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Modifica crediti degli utenti
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/admin.jpg" width="800" height="280"> 
+ </p>
+ 
+ In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
 
  ### DIAGRAMMI DEI PACKAGE
- -------
+In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
+
  
  ## Design Pattern
  ### SINGLETON
