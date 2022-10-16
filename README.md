@@ -341,7 +341,9 @@ La response è la mossa dell' intelligenza artificiale
  
  ## Design Pattern
  ### SINGLETON
- ------
+  <p align="center" style="margin-top: 10px;">
+<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Frefactoring.guru%2Fdesign-patterns%2Fsingleton&psig=AOvVaw39ismmG29ROWE-HlB_xjhf&ust=1666041109976000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCLCG_PXU5foCFQAAAAAdAAAAABAK"width="700" height="300"> 
+ </p>
  ### MC
  Per lo sviluppo dell'applicazione è stato utilizzato il pattern M(V)C, che consente di suddividere il progetto in 2 parti:
  
@@ -356,32 +358,64 @@ I ***controllers*** vengono utilizzati come intermediario tra views e models, in
 <img src="https://miro.medium.com/max/1000/1*23_6IjYfnybitGq4jO0QCg.gif" width="400" height="300"> 
  </p>
  
- I models utilizzati sono presenti nel file ***models.ts***  e sono stati definiti con ***sequelize.define(modelName, attributes, options)***
+ I models utilizzati sono presenti nei file ***board.ts*** e ***users.ts***  e sono stati definiti con ***sequelize.init(modelName, attributes, options)***
+ 
  #### Esempio model sequelize
+ 
   ```
-  const users = sequelize.define(constantsdb.TABLE_USER, {
-    name: { type: Sequelize.STRING },
-    surname: { type: Sequelize.STRING },
-    email: { type: Sequelize.STRING },
-    pwd: { type: Sequelize.STRING },
-    credits: { type: Sequelize.INTEGER },
-    isadmin: { type: Sequelize.BOOLEAN },
+  export const board = boards.init({
+    id : {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+    },
+    player: {
+        type: DataTypes.INTEGER,
+    },
+    color: {
+        type: DataTypes.STRING,
+    },
+  
+    history: {
+        type: DataTypes.STRING,
+    },
+    startdate: {
+        type: DataTypes.STRING,
 
+    },
 
- }, { timestamps: false })
+    config: {
+        type: DataTypes.STRING,
+
+    },
+    level: {
+        type: DataTypes.INTEGER,
+    },
+    state: {
+        type: DataTypes.STRING,
+    }
+   
+}, {
+    sequelize,
+    timestamps:false,
+    createdAt: false,
+    updatedAt: false,
+    modelName: databaseConstants.BOARDS_TABLE
+  
+})
  ```
 Tra i controllers sono presenti gli effettivi controllers e  i file ***auth*** e  ***routes.ts*** che contengono rispettivamente i middleware e le rotte utilizzare
 
 #### Esempio rotta
  ```
- app.put("/model/:modelid",jwtAuth ,function ( req,res){
- controller.updateWeights(req,res)
- })
+app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
+    setBoardState(req, res)
+})
   ```
 
  
  ### Middleware
-  Le funzioni middleware sono funzioni con accesso all’oggetto richiesta (req), all’oggetto risposta (res) e alla successiva funzione middleware nel ciclo   richiesta-risposta dell’applicazione. La successiva funzione middleware viene comunemente denotata da una variabile denominata next.
+  Le funzioni middleware sono funzioni con accesso all’oggetto richiesta (req), all’oggetto risposta (res) e alla successiva funzione middleware nel    ciclo richiesta-risposta dell’applicazione. La successiva funzione middleware viene comunemente denotata da una variabile denominata next.
   Nell'applicazione i middleware sono stati utilizzati principalmente per l'autenticazione dell'utente e per la gestione delle eccezioni
   
  <p align="center" style="margin-top: 10px;">
