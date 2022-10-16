@@ -41,7 +41,7 @@ Si realizzi un sistema che consenta di gestire il gioco di scacchi. In particola
 
 ## PROGETTAZIONE
  ### ROTTE
-Le richieste vengono effettuate con [POSTMAN](https://www.postman.com/).
+I test degli endpoint sono stati fatti con [POSTMAN](https://www.postman.com/).
 Di seguito vengono riportate le possibili richieste:
 |ROTTA | BODY | TIPO | 
 |---|---|---|
@@ -65,44 +65,257 @@ Di seguito vengono riportate le possibili richieste:
  
  Utilizzando questa rotta è possibile ottenere un [Json Web Token](https://jwt.io/) composto dalla chiave segreta e dai dati inseriti nella request (email,password)
  
-  ### Esempio di body
+  ### Esempio di request
  ```
- {
-    "email": "prova@prova.it",
-    "pwd" : "prova"
- }
+{
+    "email": "alex@progettopa.it",
+    "pwd": "progettopa"
+}
  ```
  ### Esempio di response
  ```
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb3ZhQHByb3ZhLml0IiwicHdkIjoicHJvdmEiLCJpYXQiOjE2NjE3ODUwMjl9.61Y780uCOtoJsFOLnhWqk86AjEN381XT89OJGwC1Gac"
-```
- > **POST** /model
+{
+    "msg": "200, Registrazione effettuata con successo!"
+}
  
- Utilizzando questa rotta è possibile è possibile creare ed inserire un modello nel database
+ > **POST** /signIn
  
-  ### Esempio di body
+ Utilizzando questa rotta è possibile effettuare il login per ottenere la stringa JWT.
+
+ 
+  ### Esempio di request
  ```
  {
-    "A": {
-        "B":1,
-        "C":2,
-        "F":6,
-        "L":9
+    "email": "carlo@gmail.it",
+    "pwd": "carlo"
+}
+ ```
+ ### Esempio di response
+ 
+ Con la response di questa rotta è possibile accedere a tutti i dati associati all'utenza presente nel payload.
+ 
+ ```
+{
+    "jwt": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmxvQGdtYWlsLml0IiwicGFzc3dvcmQiOiJjYXJsbyIsInVzZXJpZCI6MSwiaWF0IjoxNjY1OTQxNTg3fQ.NUITaZ1OESppb3_D9Qag2ltqrllJSmGqNnGZBvxine0"
+ 
+}
+ ```
+ 
+> **POST** /boards/newboard/:level
+ 
+ Utilizzando questa rotta è possibile creare una nuova partita, passando come parametro il livello a cui desidera giocare.
+ La descrizione dei livelli di difficoltà è descritta (qui)[https://www.npmjs.com/package/js-chess-engine#computer-ai]
+
+ 
+  ### Esempio di request
+ Questo campo indica il colore con cui si vuole iniziare la partita
+ 
+ ```
+{
+    "color": "white"
+}
+ ```
+ ### Esempio di response
+ 
+La response è un messaggio di conferma/errore di inizio partita.
+ 
+ ```
+{
+    "msg": "200, Partita iniziata!"
+}
+ ```
+> **POST** /boards/:boardid/move
+ 
+ Utilizzando questa rotta è possibile effettuare un movimento sulla scacchiera.
+ I possibili movimenti sono indicati nella (board configuration)[https://www.npmjs.com/package/js-chess-engine#board-configuration]
+
+  ### Esempio di request
+ 
+ ```
+{
+    "from": "F7",
+    "to": "E6"
+}
+ ```
+ ### Esempio di response
+ 
+La response è la mossa dell' intelligenza artificiale
+ 
+ ```
+{
+    "B1": "C1"
+}
+ ``` 
+ 
+> **POST** /boards/:boardid?
+ 
+ Utilizzando questa rotta è possibile ottenere tutte le partite giocate da un determinato utente ed alcune informazioni.
+ I possibili movimenti sono indicati nella (board configuration)[https://www.npmjs.com/package/js-chess-engine#board-configuration]
+
+  ### Esempio di request
+ Il formato della data deve essere **DD/MM/YYYY**
+ ```
+{
+    date : "12/10/2022"
+}
+ ```
+ ### Esempio di response
+ 
+ 
+ ```
+[
+    [
+        {
+            "boardId": 2,
+            "player": 3,
+            "nMoves": 1,
+            "state": "stopped"
+        }
+    ],
+    [
+        {
+            "boardId": 1,
+            "player": 3,
+            "nMoves": 23,
+            "state": "abandoned"
+        }
+    ]
+]
+ ``` 
+
+  > **GET** /boards/:boardid/info
+ 
+ Utilizzando questa rotta è possibile ottenere lo stato di una partita.
+ i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
+
+
+ ### Esempio di response
+ 
+ 
+ ```
+{
+    "isOver": false,
+    "checkMate": false,
+    "check": false,
+    "turn": "white",
+    "abandoned": false
+}
+ ```
+   > **GET** /boards/:boardid/abandoned
+ 
+ Utilizzando questa rotta è possibile abbandonare una partita, impostando lo stato ad 'abandoned'
+ i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
+
+
+ ### Esempio di response
+ 
+ 
+ ```
+{
+    "msg": "200, la partita è stata abbandonata"
+}
+ ```
+ 
+ > **GET** /boards/:boardid/stopped
+ 
+ Utilizzando questa rotta è possibile interrompere una partita, impostando lo stato ad 'stopped'
+ i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
+
+
+ ### Esempio di response
+ 
+ 
+ ```
+{
+    "msg": "200, la partita è stata interrotta"
+}
+ ```
+ 
+  > **GET** /boards/:boardid/history
+ 
+ Utilizzando questa rotta è possibile ottenere lo storico delle mosse di una partita.
+
+ ### Esempio di response
+ 
+ 
+ ```
+[
+    {
+        "from": "B1",
+        "to": "C3"
     },
-    "R":{
-        "A":6,
-        "N":5
-    } 
- }
- ```
- ### Esempio di response
- 
- la response corrisponde ad un messaggio di errore o di creazione avvenuta con successo
- ```
- "modello aggiunto con successo"
+    {
+        "from": "G8",
+        "to": "F6"
+    }
+]
  ```
  
+ > **POST** /boards/users/ranking
  
+ Utilizzando questa rotta è possibile ottenere la classifica dei giocati, passando nel body il tipo di ordinamento.
+ L'ordinamento può essere credesce (asc) o descrescente (desc)
+ 
+  ### Esempio di request
+ 
+  ```
+ {
+    "sort": "asc"
+}
+  ```
+
+ ### Esempio di response 
+ ```
+[
+    {
+        "position": 1,
+        "player": {
+            "id": 3,
+            "email": "alex@progettopa.it",
+            "wins": 1
+        }
+    },
+    {
+        "position": 2,
+        "player": {
+            "id": 1,
+            "email": "carlo@gmail.it",
+            "wins": 1
+        }
+    },
+    {
+        "position": 3,
+        "player": {
+            "id": 2,
+            "email": "mario@gmail.it",
+            "wins": 2
+        }
+    }
+]
+ ```
+ 
+ > **PUT** /boards/users/admin
+ 
+ Utilizzando questa rotta è possibile incrementare o descrementare il credito di un utente.
+ Questa rotta è accessibile solo se l'utenza è di tipo 'admin'
+ 
+  ### Esempio di request
+ 
+  ```
+ {
+    "email": "alex@progettopa.it",
+    "credits" : 5
+}
+  ```
+   ### Esempio di response
+ 
+  ```
+ {
+    "msg": "200, La modifica dei crediti è avvenuta con successo"
+}
+  ```
+
+
 
 
  ## DIAGRAMMI UML
