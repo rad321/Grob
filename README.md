@@ -335,14 +335,64 @@ La response è la mossa dell' intelligenza artificiale
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="550" height="280"> 
  </p>
  ### DIAGRAMMI DELLE SEQUENZE
- -------
+ 
+ - Registrazione
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/signUp.jpg" width="800" height="280"> 
+ </p>
+ 
+ - Accedi
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/signIn.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Nuova partita
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/newGame.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Stato di una partita
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/infoBoard.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Tutte le partite
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/allBoards.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Spostamento sulla scacchiera
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/pieceMove.jpg" width="800" height="280"> 
+ </p>
+  - Classsifica giocatori
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/ranking.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Modifica crediti degli utenti
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/admin.jpg" width="800" height="280"> 
+ </p>
+ 
+ In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
+
  ### DIAGRAMMI DEI PACKAGE
- -------
+In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
+
  
  ## Design Pattern
  ### SINGLETON
   <p align="center" style="margin-top: 10px;">
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Frefactoring.guru%2Fdesign-patterns%2Fsingleton&psig=AOvVaw39ismmG29ROWE-HlB_xjhf&ust=1666041109976000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCLCG_PXU5foCFQAAAAAdAAAAABAK"width="700" height="300"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/public/img/singleton.png"width="500" height="300"> 
  </p>
  ### MC
  Per lo sviluppo dell'applicazione è stato utilizzato il pattern M(V)C, che consente di suddividere il progetto in 2 parti:
@@ -422,19 +472,19 @@ app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
 <img src="https://iq.opengenus.org/content/images/2019/08/Add-a-subheading--1-.png" width="700" height="300"> 
  </p>
  
-## DIAGRAMMI DELLE SEQUENZE 
 
 ## AVVIO DEL PROGETTO CON DOCKER
 
-## SOFTWARE/FRAMEWORK/LIBRERIE UTILIZZATI
-
-*  [VS CODE](https://www.eclipse.org/downloads/)
+## FRAMEWORK/MODULI UTILIZZATI
+ 
+*  [NODEJS](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/)
 *  [EXPRESS.JS](https://maven.apache.org/)
 *  [SEQUELIZE](https://spring.io/)
-*  [DOTENV]
-*  [TS-NODE]
-*  [NODEJS]
-*  [POSTGRES]
+*  [DOTENV](https://github.com/motdotla/dotenv)
+*  [TS-NODE](https://www.npmjs.com/package/ts-node)
+*  [POSTGRES](https://www.npmjs.com/package/postgres)
+*  [HTTP-STATUS-CODES](https://www.npmjs.com/package/http-status-codes)
+*  [BODY-PARSER](https://www.npmjs.com/package/body-parser)
 
 ## AUTORE
 
