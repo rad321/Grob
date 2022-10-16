@@ -43,7 +43,7 @@ export const exceptionMsg = {
     ERR_REQUEST_COLOR : "Request errata, può contenere solo il campo 'color'",
     ERR_PARAM_BOARDID : "Il parametro 'boardid' è errato",
     ERR_MOSSA_NON_VALIDA : "mossa non valida, modificare lo spostamento",
-    PARTITA_ABBANDONATA : "Questa partita è stata abbandonata, inserire un id diverso",
+    PARTITA_CONCLUSA : "Questa partita si è conclusa, inserire un id diverso",
     CREDITO_INSUFFICIENTE : "Credito insufficiente",
     ERR_RANGE_DATE : "Body Errato, la data deve essere inclusa nel range ammissibile e il suo formato deve essere 'dd/mm/yyyy' (vedi doc.)",
     ERR_CAMPO_SORT : "Body errato, il campo 'sort' può essere solo 'desc' o 'asc'",

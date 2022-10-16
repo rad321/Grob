@@ -100,7 +100,8 @@ static getReasonPhrase(statusCode, phrase){
     return { msg : statusCode+", "+ phrase}
 }
 static async getCredits(id){
-     return await findUserById(id)[0].dataValues.credits
+    let user = await findUserById(id)
+     return user[0].dataValues.credits
 }
 static greaterOrEqual(a,b){
     if ( a >= b ) return true

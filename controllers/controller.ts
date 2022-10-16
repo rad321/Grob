@@ -46,8 +46,9 @@ export const createNewGame = async (req, res) => {
  * @param res 
  */
 async function checkMinCredits(userid,game,req,res){
-    if (Utils.greaterOrEqual(Number(Utils.getCredits(userid)), totCost)) {
-        updateUserCredits(userid, Number(Utils.getCredits(userid)) - totCost)
+    
+    if (Utils.greaterOrEqual(parseInt(await Utils.getCredits(userid)), totCost)) {
+        updateUserCredits(userid, parseInt(await Utils.getCredits(userid)) - totCost)
         game.aiMove(req.params.level)
         await addNewGame(Utils.createGameMap(req, game)).then(() => { res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_INIZIATA)) }).catch((err) => {
             res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.ERR_CREAZIONE_PARTITA + err))
@@ -68,10 +69,26 @@ export const pieceMove = async (req, res) => {
     if (isStopped(board, userid))
         updateBoardState(boardConstants.STATE_IN_PROGRESS, board.id)
     // verifica se è il turno del player
+    console.log("OOOK")
     if (JSON.parse(board.config).turn == board.color) {
-        makeMovement(board,userid,game,req,res)
+        console.log("OK")
+
+        console.log("OOK")
+        if (checkState(board, board.color, userid)) {
+            game.move(req.body.from, req.body.to)
+            
+            await updateUserCredits(parseFloat(await Utils.getCredits(userid)) - boardConstants.DECR_MOVE, userid)
+            console.log("MOSSA PLAYER : " + (parseFloat(await Utils.getCredits(userid)) - boardConstants.DECR_MOVE))
+            if (checkState(board, board.color, userid)) {
+                let aiMove = game.aiMove(board.level)
+                await updateUserCredits(parseFloat(await Utils.getCredits(userid)) - boardConstants.DECR_MOVE, userid).catch((err)=> err)
+                console.log("MOSSA AI : " + (parseFloat(await Utils.getCredits(userid)) - boardConstants.DECR_MOVE))
+                res.json(aiMove)
+            }
+        }  else res.json(successMsg.PARTITA_CONCLUSA)
     }
-    updateBoard(game.exportJson(), JSON.parse(board.history).concat(game.getHistory()), req.params.boardid)
+
+    await updateBoard(game.exportJson(),JSON.parse(board.history).concat(game.getHistory()), req.params.boardid)
 }
 /**
  * 
@@ -81,15 +98,8 @@ export const pieceMove = async (req, res) => {
  * @param req 
  * @param res 
  */
-function makeMovement(board,userid,game,req,res){
-    if (checkState(board, board.color, userid)) {
-        game.move(req.body.from, req.body.to)
-        updateUserCredits(Number(Utils.getCredits(userid)) - boardConstants.DECR_MOVE, userid)
-        if (checkState(board, board.color, userid)) {
-            let aiMove = game.aiMove(board.level)
-            res.json(aiMove)
-        }
-    } else res.json(successMsg.PARTITA_CONCLUSA)
+ async function  makeMovement(board,userid,game,req,res){
+
 }
 /**
  * 

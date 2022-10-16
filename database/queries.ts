@@ -66,7 +66,7 @@ export const addNewGame = async (map) => {
  * @param id 
  */
 export const updateBoard = async (config, history, id) => {
-    await board.update({ config: JSON.stringify(config), history: JSON.stringify(history) }, {
+     return await board.update({ config: JSON.stringify(config), history: JSON.stringify(history) }, {
         where: {
             id: id
         }
@@ -113,12 +113,19 @@ export const findUserById = async (id) =>{
     });
 
 }
+/**
+ * 
+ * @param credits 
+ * @param id 
+ * @returns 
+ */
 export const updateUserCredits = async (credits,id) =>{
     return await user.update({credits : credits },{
         where : {
             id : id 
         }
     })
+    
 }
 /**
  * 
@@ -126,7 +133,8 @@ export const updateUserCredits = async (credits,id) =>{
  * @param id 
  */
 export const updateBoardState = async (state,id) =>{
-    await board.update({state : state },{ where : { id : id} })
+    return await board.update({state : state },{ where : { id : id} })
+
 }
 /**
  * 

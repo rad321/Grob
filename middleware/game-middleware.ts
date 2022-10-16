@@ -100,10 +100,9 @@ export const checkPieceMove = async (req, res, next) => {
  */
 export const checkGameState = async (req, res, next) => {
     var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
-    if (data[0].dataValues.state == boardConstants.STATE_ABANDONED)
-        res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.PARTITA_ABBANDONATA))
-    else if (data[0].dataValues.state == boardConstants.STATE_WIN || data[0].dataValues.state == boardConstants.STATE_DEFEAT)
-        res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, successMsg.PARTITA_CONCLUSA))
+    if (data[0].dataValues.state == boardConstants.STATE_ABANDONED || data[0].dataValues.state == boardConstants.STATE_WIN
+        || data[0].dataValues.state == boardConstants.STATE_DEFEAT || JSON.parse(data[0].dataValues.config).isFinished)
+        res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.PARTITA_CONCLUSA))
     else
         next()
 }
