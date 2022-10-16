@@ -2,7 +2,7 @@
 
 
 ## OBIETTIVO DEL PROGETTO
-In questo progetto è presente un back-end che implementa il gioco degli scacchi. Il codice è stato realizzato con l'utilizzo di [Node.js] (https://nodejs.org/en/) e del modulo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a>, necessario per gestire tutti i possibile eventi generati dal utente.
+In questo progetto è presente un back-end che implementa il gioco degli scacchi. Il codice è stato realizzato con l'utilizzo di [Node.js](https://nodejs.org/en/) e del modulo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a>, necessario per gestire tutti i possibile eventi generati dal utente.
  
 Gli obiettivi di realizzazione sono: 
  
@@ -108,7 +108,7 @@ Di seguito vengono riportate le possibili richieste:
 > **POST** /boards/newboard/:level
  
  Utilizzando questa rotta è possibile creare una nuova partita, passando come parametro il livello a cui desidera giocare.
- La descrizione dei livelli di difficoltà è descritta (qui)[https://www.npmjs.com/package/js-chess-engine#computer-ai]
+ La descrizione dei livelli di difficoltà è descritta [qui](https://www.npmjs.com/package/js-chess-engine#computer-ai)
 
  
   #### Esempio di request
