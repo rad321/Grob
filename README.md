@@ -3,7 +3,9 @@
 
 ## OBIETTIVO DEL PROGETTO
 In questo progetto è presente un back-end che implementa il gioco degli scacchi.Il codice è stato realizzato con l'utilizzo di NODEJS del modulo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a>,necessario per gestire tutti i possibile eventi generati dal utente.
+ 
 Gli obiettivi di realizzazione sono: 
+ 
 Si realizzi un sistema che consenta di gestire il gioco di scacchi. In particolare, il sistema si basa sul un utente (sempre autenticato con JWT) che gioca contro l’intelligenza artificiale. Ci possono essere più partite attive in un dato momento. Un utente può allo stesso tempo partecipare ad una ed una sola partita.
 •	Dare la possibilità di creare una nuova partita seguendo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a> ; 
  la partita può essere:
