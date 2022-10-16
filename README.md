@@ -66,6 +66,7 @@ Di seguito vengono riportate le possibili richieste:
  Utilizzando questa rotta è possibile ottenere un [Json Web Token](https://jwt.io/) composto dalla chiave segreta e dai dati inseriti nella request (email,password)
  
   ### Esempio di request
+ 
  ```
 {
     "email": "alex@progettopa.it",
@@ -73,6 +74,7 @@ Di seguito vengono riportate le possibili richieste:
 }
  ```
  ### Esempio di response
+ 
  ```
 {
     "msg": "200, Registrazione effettuata con successo!"
@@ -84,6 +86,7 @@ Di seguito vengono riportate le possibili richieste:
 
  
   ### Esempio di request
+ 
  ```
  {
     "email": "carlo@gmail.it",
@@ -108,6 +111,7 @@ Di seguito vengono riportate le possibili richieste:
 
  
   ### Esempio di request
+ 
  Questo campo indica il colore con cui si vuole iniziare la partita
  
  ```
