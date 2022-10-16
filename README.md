@@ -335,7 +335,38 @@ La response è la mossa dell' intelligenza artificiale
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="550" height="280"> 
  </p>
  ### DIAGRAMMI DELLE SEQUENZE
- -------
+ 
+ - Registrazione
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/signUp.jpg" width="800" height="280"> 
+ </p>
+ 
+ - Accedi
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/signIn.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Nuova partita
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/newBoard.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Stato di una partita
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/infoBoard.jpg" width="800" height="280"> 
+ </p>
+ 
+  - Storico delle mosse
+ 
+  <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/history.jpg" width="800" height="280"> 
+ </p>
+ 
+
  ### DIAGRAMMI DEI PACKAGE
  -------
  
@@ -425,7 +456,7 @@ app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
 
 ## AVVIO DEL PROGETTO CON DOCKER
 
-## FRAMEWORK/LIBRERIE UTILIZZATI
+## FRAMEWORK/MODULI UTILIZZATI
  
 *  [NODEJS](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/)
 *  [EXPRESS.JS](https://maven.apache.org/)
