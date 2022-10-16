@@ -3,7 +3,7 @@
 ## INTRODUZIONE
 
 <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/public/img/chess.gif?raw=true" width="400" height="300"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/public/img/chess.gif?raw=true" width="500" height="300"> 
  </p>
 
 ## OBIETTIVO DEL PROGETTO
