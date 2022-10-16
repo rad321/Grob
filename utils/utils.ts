@@ -17,7 +17,7 @@ export class Utils {
          if ( user.length == 0) res.json(exceptionMsg.UTENTE_INESISTENTE).status(404)
          else{
          var token =  jwt.sign({ email: req.body.email, password: req.body.pwd, userid : user[0].dataValues.id}, process.env.SECRET_KEY)
-         res.json(token)
+         res.json({ jwt :token })
          }
     }
     /**

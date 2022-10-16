@@ -47,12 +47,12 @@ export const createNewGame = async (req, res) => {
  */
 async function checkMinCredits(userid,game,req,res){
     
-    if (Utils.greaterOrEqual(parseInt(await Utils.getCredits(userid)), totCost)) {
-        updateUserCredits(userid, parseInt(await Utils.getCredits(userid)) - totCost)
+    if (Utils.greaterOrEqual(parseFloat(await Utils.getCredits(userid)), totCost)) {
+        await updateUserCredits(parseFloat(await Utils.getCredits(userid)) - totCost,userid)
         game.aiMove(req.params.level)
-        await addNewGame(Utils.createGameMap(req, game)).then(() => { res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_INIZIATA)) }).catch((err) => {
+        await addNewGame(Utils.createGameMap(req, game)).then(() =>  res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_INIZIATA)) ).catch((err) => 
             res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.ERR_CREAZIONE_PARTITA + err))
-        })
+        )
     } else
          res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
 }
@@ -151,16 +151,20 @@ async function updateConfig(state, id) {
  */
 export const findGames = async (req, res) => {
     if (req.params.boardid == constants.EMPTY_PARAM_BOARDID) {
+        console.log(req.body.date)
         if (req.body.date != undefined) {
+            //console.log(Utils.decodeJwt(req.headers.authorization).userid)
             let gamesByDate = await findGamesByDate(req)
             if (gamesByDate.length == 0) res.json(exceptionMsg.PARTITE_INESISTENTI_BY_DATE).status(404)
             else res.status(StatusCodes.OK).json(setResponseItems(games, gamesByDate))
         }
         else {
+            console.log(Utils.decodeJwt(req.headers.authorization).userid)
             var data = await findGamesByUserId(Utils.decodeJwt(req.headers.authorization).userid)
             res.status(StatusCodes.OK).json(setResponseItems(games, data))
         }
     } else {
+        
         let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
         res.json(Utils.createJsonGameInfo(data[0].dataValues))
     }

@@ -1,4 +1,4 @@
-import { checkEmailFormat, checkIfUserExist } from "../middleware/credentials-middleware";
+import { checkEmail, checkEmailFormat, checkIfUserExist } from "../middleware/credentials-middleware";
 import { checkEmailJwt } from "../middleware/jwt-middleware";
 import { checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
 import { abandoned, createNewGame, findGame, findGames, getHistory, getRanking, login, pieceMove, setBoardState } from "./controller";
@@ -21,7 +21,7 @@ app.post('/signUp', jsonParser, checkEmailFormat, checkIfUserExist, (req, res) =
 /**
  * Login con con verifica della stringa jwt
  */
-app.post('/signIn', jsonParser, checkEmailFormat, checkIfUserExist, (req, res) => {
+app.post('/signIn', jsonParser, checkEmailFormat, checkEmail, (req, res) => {
     login(req, res);
 })
 /**
@@ -48,7 +48,7 @@ app.get('/boards/:boardid/history', checkEmailJwt, (req, res) => {
  * Rotta che restituisce lo stato di una partita
  */
 
-app.post('/boards/:boardid?', jsonParser, checkEmailJwt, dateValidator, checkOptionalBoardId, (req, res) => {
+app.post('/boards/:boardid?', jsonParser, checkEmailJwt, dateValidator,(req, res) => {
     findGames(req, res)
 })
 /**
@@ -80,7 +80,7 @@ app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
 /**
  * 
  */
-app.post('/admin',checkEmailJwt,isAdmin, (req, res) => {
+app.post('/admin',jsonParser,checkEmailJwt,isAdmin, (req, res) => {
     updateCredits(req, res)
 })
 
