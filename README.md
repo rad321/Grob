@@ -40,9 +40,14 @@ Si realizzi un sistema che consenta di gestire il gioco di scacchi. In particola
 - Si chiede di commentare opportunamente il codice.
 
 ## COSA SI PUO' FARE?
-Diagramma dei casi d'uso:
+### Diagramma dei casi d'uso dell'utente:
 <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/ProgettoPO/blob/master/UseCaseDiagramProject.jpg" width="400" height="300"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-user.jpg" width="450" height="300"> 
+ </p>
+ 
+ ### Diagramma dei casi d'uso dell'amministratore:
+ <p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="450" height="300"> 
  </p>
 
 
