@@ -325,8 +325,10 @@ La response è la mossa dell' intelligenza artificiale
 
 
 ##STATI DELLA PARTITA
+ 
 ## DIAGRAMMI UML
- ###DIAGRAMMI DEI CASI D'USO
+ 
+### DIAGRAMMI DEI CASI D'USO
 - Diagramma dei casi d'uso dell'utente:
 <p align="center" style="margin-top: 10px;">
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-user.jpg" width="750" height="600"> 
@@ -336,7 +338,8 @@ La response è la mossa dell' intelligenza artificiale
  <p align="center" style="margin-top: 10px;">
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="550" height="280"> 
  </p>
- ### DIAGRAMMI DELLE SEQUENZE
+ 
+### DIAGRAMMI DELLE SEQUENZE
  
  - Registrazione
  
