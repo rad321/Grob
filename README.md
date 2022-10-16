@@ -404,7 +404,9 @@ Per lo sviluppo dell'applicazione è stato utilizzato il design pattern Singleto
  <p align="center" style="margin-top: 10px;">
 <img src="https://github.com/alexxdediu/Grob/blob/main/public/img/singleton.png"width="500" height="300"> 
  </p>
+ 
  ### MC
+ 
  Per lo sviluppo dell'applicazione è stato utilizzato il pattern M(V)C, che consente di suddividere il progetto in 2 parti:
  
 *  Models
