@@ -35,7 +35,7 @@ app.post('/boards/newboard/:level', jsonParser, checkGameLevel, checkEmailJwt, c
 /**
  * Rotta per effettuare un movimento sulla scacchiera (nuova partita o partita sospesa)
  */
-app.post('/boards/:boardid/move', jsonParser, checkEmailJwt, checkBoardId, checkGameState, checkPieceMove, checkCredits, (req, res) => {
+app.post('/boards/:boardid/move', jsonParser, checkEmailJwt, checkBoardId, checkGameState, checkPieceMove, (req, res) => {
     pieceMove(req, res)
 })
 /**
@@ -80,7 +80,7 @@ app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
 /**
  * 
  */
-app.post('/admin', isAdmin, (req, res) => {
+app.post('/admin',checkEmailJwt,isAdmin, (req, res) => {
     updateCredits(req, res)
 })
 
