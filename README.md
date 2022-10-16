@@ -422,19 +422,19 @@ app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
 <img src="https://iq.opengenus.org/content/images/2019/08/Add-a-subheading--1-.png" width="700" height="300"> 
  </p>
  
-## DIAGRAMMI DELLE SEQUENZE 
 
 ## AVVIO DEL PROGETTO CON DOCKER
 
-## SOFTWARE/FRAMEWORK/LIBRERIE UTILIZZATI
-
-*  [VS CODE](https://www.eclipse.org/downloads/)
+## FRAMEWORK/LIBRERIE UTILIZZATI
+ 
+*  [NODEJS](https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/)
 *  [EXPRESS.JS](https://maven.apache.org/)
 *  [SEQUELIZE](https://spring.io/)
-*  [DOTENV]
-*  [TS-NODE]
-*  [NODEJS]
-*  [POSTGRES]
+*  [DOTENV](https://github.com/motdotla/dotenv)
+*  [TS-NODE](https://www.npmjs.com/package/ts-node)
+*  [POSTGRES](https://www.npmjs.com/package/postgres)
+*  [HTTP-STATUS-CODES](https://www.npmjs.com/package/http-status-codes)
+*  [BODY-PARSER](https://www.npmjs.com/package/body-parser)
 
 ## AUTORE
 
