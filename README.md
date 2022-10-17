@@ -110,7 +110,8 @@ Di seguito vengono riportate le possibili richieste:
 > **POST** /boards/newboard/:level
  
  Utilizzando questa rotta è possibile creare una nuova partita, passando come parametro il livello a cui desidera giocare.
- La descrizione dei livelli di difficoltà è descritta [qui](https://www.npmjs.com/package/js-chess-engine#computer-ai)
+ La descrizione dei livelli di difficoltà è descritta [qui](https://www.npmjs.com/package/js-chess-engine#computer-ai).
+ Durante la creazione della partita lo stato viene impostato a 'ip'.
 
  
   #### Esempio di request
@@ -193,7 +194,7 @@ La response è la mossa dell' intelligenza artificiale
   > **GET** /boards/:boardid/info
  
  Utilizzando questa rotta è possibile ottenere lo stato di una partita.
- i possibili stati sono ripartati nella [sezione successiva](#stati di una partita)
+ i possibili stati sono ripartati nella [sezione successiva](#stati-di-una-partita)
 
 
 #### Esempio di response
@@ -211,7 +212,7 @@ La response è la mossa dell' intelligenza artificiale
    > **GET** /boards/:boardid/abandoned
  
  Utilizzando questa rotta è possibile abbandonare una partita, impostando lo stato ad 'abandoned'
- i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
+ i possibili stati sono ripartati nella [sezione successiva](#stati-della-partita)
 
 
 #### Esempio di response
@@ -226,7 +227,7 @@ La response è la mossa dell' intelligenza artificiale
  > **GET** /boards/:boardid/stopped
  
  Utilizzando questa rotta è possibile interrompere una partita, impostando lo stato ad 'stopped'
- i possibili stati sono ripartati nella [sezione successiva](#stati di una partita)
+ i possibili stati sono ripartati nella [sezione successiva](#stati-della-partita)
 
 
 #### Esempio di response
@@ -322,9 +323,19 @@ La response è la mossa dell' intelligenza artificiale
 }
   ```
 
+## STATI DELLA PARTITA
+ 
+Di seguito sono riportati tutti i possibili stati di una partita.
+Gli stati di una partita vengono aggiornati in base alle rotte utilizzate.
 
+|STATO | DESCRIZIONE | CODICE | 
+|---|---|---|
+|Partita in esecuzione |Stato utilizzato durante la creazione di una nuova partita|ip|
+|Partita abbandonata |Stato utilizzato per abbandonare una partita  |abandoned|
+|Partita interrotta|Stato utilizzato per interrompere una partita |stopped|
+|Partita vinta |Stato che indica la vittoria del player|win|
+|Partita persa| Stato che indica la vittoria dell'AI |defeat|
 
-##STATI DELLA PARTITA
  
 ## DIAGRAMMI UML
  
