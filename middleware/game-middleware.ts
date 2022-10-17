@@ -109,8 +109,8 @@ export const checkGameState = async (req, res, next) => {
     if (data[0].dataValues.state == boardConstants.STATE_ABANDONED || data[0].dataValues.state == boardConstants.STATE_WIN
         || data[0].dataValues.state == boardConstants.STATE_DEFEAT || JSON.parse(data[0].dataValues.config).isFinished)
         res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.PARTITA_CONCLUSA))
-    else if ((req.path.includes(boardConstants.STATE_STOPPED) && data[0].dataValues.state == boardConstants.STATE_STOPPED && req.body.state != constants.RIPRENDI_PARTITA) 
-    || (req.originalUrl.includes(constants.MOVE) && data[0].dataValues.state == boardConstants.STATE_STOPPED ))
+    else if ((req.path.includes(boardConstants.STATE_STOPPED) && data[0].dataValues.state == boardConstants.STATE_STOPPED && req.body.state != constants.RIPRENDI_PARTITA)
+        || (req.originalUrl.includes(constants.MOVE) && data[0].dataValues.state == boardConstants.STATE_STOPPED))
         res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.ERR_PARTITA_INTERROTTA))
     else
         next()
@@ -122,24 +122,26 @@ export const checkGameState = async (req, res, next) => {
  * @param next 
  */
 export const checkActiveBoards = async (req, res, next) => {
+    console.log(await activeGamesLength(req))
     if (await activeGamesLength(req)) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.ERR_NUMERO_PARTITE_INIZIATE))
     else next()
 
 }
-export const checkResume = async (req,res,next) =>{
-    const board = await findGameByBoardId(req.params.boardid,Utils.decodeJwt(req.headers.authorization).userid)
-    if(req.body.state == constants.RIPRENDI_PARTITA){
-        if(await activeGamesLength(req)) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.ERR_NUMERO_PARTITE_INIZIATE))
+export const checkResume = async (req, res, next) => {
+    const board = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+    if (req.body.state == constants.RIPRENDI_PARTITA) {
+        if (await activeGamesLength(req)) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.ERR_NUMERO_PARTITE_INIZIATE))
         else next()
     }
     else next()
 
 }
-async function activeGamesLength (req) : Promise<boolean> {
+async function activeGamesLength(req): Promise<boolean> {
     const boards = await findActiveGames(Utils.decodeJwt(req.headers.authorization).userid)
-    if (Utils.greaterOrEqual(boards.length,1)) return true
+    if (Utils.greaterOrEqual(boards.length, 1) && req.originalUrl.includes(boardConstants.STATE_STOPPED)
+        || (boards.length > 1 && req.originalUrl.includes(constants.MOVE))) return true
     else return false
-    
+
 }
 
 
