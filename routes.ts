@@ -60,7 +60,7 @@ app.get('/board/:boardid/info', jsonParser, checkEmailJwt,checkBoardId, (req, re
 /**
  * Rotta utilizzata per abbandonare una partita
  */
-app.get('/boards/:boardid/abandoned', checkEmailJwt,checkGameState, (req, res) => {
+app.get('/boards/:boardid/abandoned', checkEmailJwt,checkBoardId,checkGameState, (req, res) => {
     abandoned(req, res)
 })
 /**

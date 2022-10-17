@@ -10,7 +10,7 @@ import { Utils } from "../utils/utils"
  */
 export const checkEmailJwt = (req, res, next) => {
     const token = req.headers.authorization
-    const jwtDecode = Utils.decodeJwt(token)
+    const jwtDecode = token == undefined ? Utils.decodeJwt(token) : res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST,exceptionMsg.ERR_JWT))
     if (jwtDecode != null) {
         findUser(jwtDecode.email).then((user) => {
             if (typeof user == constants.UNDEFINED) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.ERR_JWT_EMAIL + req.body.email))
