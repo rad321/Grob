@@ -342,12 +342,12 @@ Gli stati di una partita vengono aggiornati in base alle rotte utilizzate.
 ### DIAGRAMMI DEI CASI D'USO
 - Diagramma dei casi d'uso dell'utente:
 <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-user.jpg" width="750" height="600"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-user.jpg" width="650"> 
  </p>
  
  - Diagramma dei casi d'uso dell'amministratore:
  <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="550" height="280"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="650"> 
  </p>
  
 ### DIAGRAMMI DELLE SEQUENZE
