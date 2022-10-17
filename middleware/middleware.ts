@@ -42,7 +42,7 @@ export const checkCredits = async (req, res, next) => {
         res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
 
     else if (req.path.includes(constants.PATH_NEWBOARD) && req.body.color == boardConstants.PIECE_COLOR_BLACK
-        && !Utils.greaterOrEqual(parseFloat( await Utils.getCredits(user.userid)), boardConstants.DECR_CREATE_BOARD + boardConstants.DECR_MOVE))
+        && !Utils.greaterOrEqual(parseFloat(await Utils.getCredits(user.userid)), boardConstants.DECR_CREATE_BOARD + boardConstants.DECR_MOVE))
         res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
     else if (req.path.includes(boardConstants.STATE_STOPPED) && !Utils.greaterOrEqual(parseFloat(await Utils.getCredits(user.userid)), boardConstants.DECR_STOPPED))
         res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))

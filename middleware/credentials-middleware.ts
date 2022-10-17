@@ -19,7 +19,7 @@ export const validateEmail = function (email): boolean {
  */
 export const checkEmailFormat = function (req, res, next) {
     if (validateEmail(req.body.email)) next()
-    else res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST,exceptionMsg.ERR_EMAIL_NON_VALIDA))
+    else res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST, exceptionMsg.ERR_EMAIL_NON_VALIDA))
 }
 /**
  * Middleware che verifica se le credenziali sono presenti nel database.
@@ -30,7 +30,7 @@ export const checkEmailFormat = function (req, res, next) {
  */
 export const checkIfUserExist = async function (req, res, next) {
     const user = await findUser(req.body.email)
-    if (user.length != 0) res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT,exceptionMsg.ERR_CREAZIONE_UTENZA))
+    if (user.length != 0) res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.ERR_CREAZIONE_UTENZA))
     else next()
 }
 /**
@@ -41,7 +41,7 @@ export const checkIfUserExist = async function (req, res, next) {
  */
 export const checkEmail = async function (req, res, next) {
     const user = await findUser(req.body.email)
-    if (user.length == 0) res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT,exceptionMsg.ERR_JWT_EMAIL))
+    if (user.length == 0) res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.ERR_JWT_EMAIL))
     else next()
 }
 

@@ -1,14 +1,14 @@
 import { databaseConstants } from "../constants/constants";
 import { SequelizeSingleton } from "../database/sequelize-singleton";
 const { Model, DataTypes, Sequelize } = require('sequelize');
-const sequelize  = SequelizeSingleton.getConnection();
+const sequelize = SequelizeSingleton.getConnection();
 
-export class boards extends Model {}
+export class boards extends Model { }
 /**
  * Model della tabella boards
  */
 export const board = boards.init({
-    id : {
+    id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
@@ -19,7 +19,7 @@ export const board = boards.init({
     color: {
         type: DataTypes.STRING,
     },
-  
+
     history: {
         type: DataTypes.STRING,
     },
@@ -38,12 +38,12 @@ export const board = boards.init({
     state: {
         type: DataTypes.STRING,
     }
-   
+
 }, {
     sequelize,
-    timestamps:false,
+    timestamps: false,
     createdAt: false,
     updatedAt: false,
     modelName: databaseConstants.BOARDS_TABLE
-  
+
 })

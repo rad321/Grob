@@ -2,44 +2,43 @@ import { DataTypes, Model } from "sequelize";
 import { databaseConstants } from "../constants/constants";
 import { SequelizeSingleton } from "../database/sequelize-singleton";
 
-const sequelize  = SequelizeSingleton.getConnection();
-class users extends Model{}
+const sequelize = SequelizeSingleton.getConnection();
+class users extends Model { }
 /**
  * Model della tabella users
  */
 export const user = users.init({
-    id : {
+    id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    email:{
+    email: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    pwd:{
+    pwd: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    credits:{
+    credits: {
         type: DataTypes.FLOAT,
     },
-    wins:{
+    wins: {
         type: DataTypes.INTEGER,
     },
-    defeats:{
+    defeats: {
         type: DataTypes.INTEGER,
-    }, 
+    },
     admin: {
         type: DataTypes.BOOLEAN,
     }
-},{
-    
+}, {
     sequelize,
-    timestamps:false,
+    timestamps: false,
     createdAt: false,
     updatedAt: false,
-    modelName: databaseConstants.USERS_TABLE 
-  }
-   
-  )
+    modelName: databaseConstants.USERS_TABLE
+}
+
+)

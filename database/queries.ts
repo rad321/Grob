@@ -52,7 +52,7 @@ export const addNewGame = async (map) => {
         config: map.get(boardConstants.BOARD_CONFIGURATION),
         startdate: today,
         level: map.get(boardConstants.GAME_LEVEL),
-        state : map.get(boardConstants.GAME_STATE)
+        state: map.get(boardConstants.GAME_STATE)
     })
 }
 /**
@@ -62,7 +62,7 @@ export const addNewGame = async (map) => {
  * @param id 
  */
 export const updateBoard = async (config, history, id) => {
-     return await board.update({ config: JSON.stringify(config), history: JSON.stringify(history) }, {
+    return await board.update({ config: JSON.stringify(config), history: JSON.stringify(history) }, {
         where: {
             id: id
         }
@@ -73,12 +73,12 @@ export const updateBoard = async (config, history, id) => {
  * Aggiorna il numero di vittorie di un utente
  * @param id 
  */
-export const updateUserWin = async (id) =>{
+export const updateUserWin = async (id) => {
     var data = await findUserById(id)
     var val = data[0].dataValues.wins
-    await user.update({ wins : Number(val) + 1 },{
-        where : {
-            id : id
+    await user.update({ wins: Number(val) + 1 }, {
+        where: {
+            id: id
         }
     })
 }
@@ -89,9 +89,9 @@ export const updateUserWin = async (id) =>{
 export const updateUserDef = async (id) => {
     var data = await findUserById(id)
     var val = data[0].dataValues.defeats
-    await user.update({ wins : Number(val) + 1 },{
-        where : {
-            id : id
+    await user.update({ wins: Number(val) + 1 }, {
+        where: {
+            id: id
         }
     })
 }
@@ -100,7 +100,7 @@ export const updateUserDef = async (id) => {
  * @param id 
  * @returns 
  */
-export const findUserById = async (id) =>{
+export const findUserById = async (id) => {
     return await user.findAll({
         where: {
             id: id
@@ -113,29 +113,29 @@ export const findUserById = async (id) =>{
  * @param id 
  * @returns 
  */
-export const updateUserCredits = async (credits,id) =>{
-    return await user.update({credits : credits },{
-        where : {
-            id : id 
+export const updateUserCredits = async (credits, id) => {
+    return await user.update({ credits: credits }, {
+        where: {
+            id: id
         }
-    }) 
+    })
 }
 /**
  * Aggiorna lo stato di una partita.
  * @param state 
  * @param id 
  */
-export const updateBoardState = async (state,id) =>{
-    return await board.update({state : state },{ where : { id : id} })
+export const updateBoardState = async (state, id) => {
+    return await board.update({ state: state }, { where: { id: id } })
 }
 /**
  * Restituisce le partitai in base alla data di inizio.
  * @param req 
  * @returns 
  */
-export const findGamesByDate = async (req,id) => {
+export const findGamesByDate = async (req, id) => {
     return await board.findAll({
-        where: { startdate: req.body.date, player : id }
+        where: { startdate: req.body.date, player: id }
     })
 }
 /**
@@ -171,22 +171,22 @@ export const findGamesByUserId = async (userId) => {
  * @param userid 
  * @returns 
  */
-export const abandonedGame = async (boardid,userid) =>{
-    var games = await findGameByBoardId(boardid,userid)
-   var config = JSON.parse(games[0].dataValues.config)
-   config.isFinished=true
-    return await board.update({ state : boardConstants.STATE_ABANDONED,config : JSON.stringify(config)},{ where : { id : boardid}})
+export const abandonedGame = async (boardid, userid) => {
+    var games = await findGameByBoardId(boardid, userid)
+    var config = JSON.parse(games[0].dataValues.config)
+    config.isFinished = true
+    return await board.update({ state: boardConstants.STATE_ABANDONED, config: JSON.stringify(config) }, { where: { id: boardid } })
 }
 /**
  * Funzione che restituisce le partite attive di un giocatore
  * @param player 
  * @returns 
  */
-export const findActiveGames = async (player)=>{
+export const findActiveGames = async (player) => {
     return await board.findAll({
-        where : {
-            player : player,
-            state : boardConstants.STATE_IN_PROGRESS
+        where: {
+            player: player,
+            state: boardConstants.STATE_IN_PROGRESS
         }
     })
 }

@@ -67,9 +67,8 @@ export const pieceMove = async (req, res) => {
     let userid = Utils.decodeJwt(req.headers.authorization).userid
     let board = data[0].dataValues
     let game = new chessEngine.Game(JSON.parse(board.config))
-    
     // verifica se è il turno del player
-      if (JSON.parse(board.config).turn == board.color) {
+    if (JSON.parse(board.config).turn == board.color) {
         //verifica lo stato della partita
         if (checkState(board, board.color, userid)) {
             game.move(req.body.from, req.body.to)
@@ -135,7 +134,7 @@ export const findBoards = async (req, res) => {
     const id = Utils.decodeJwt(req.headers.authorization).userid;
     if (req.params.boardid == constants.EMPTY_PARAM_BOARDID) {
         if (req.body.date != undefined) {
-            let gamesByDate = await findGamesByDate(req,id)
+            let gamesByDate = await findGamesByDate(req, id)
             if (gamesByDate.length == 0) res.status(StatusCodes.NOT_FOUND).json(Utils.getReasonPhrase(StatusCodes.NOT_FOUND, exceptionMsg.PARTITE_INESISTENTI_BY_DATE))
             else res.status(StatusCodes.OK).json(setResponseItems(games, gamesByDate))
         } else {
@@ -143,7 +142,7 @@ export const findBoards = async (req, res) => {
             res.status(StatusCodes.OK).json(setResponseItems(games, data))
         }
     } else {
-        let data = await findGameByBoardId(req.params.boardid,id)
+        let data = await findGameByBoardId(req.params.boardid, id)
         res.status(StatusCodes.OK).json(Utils.createJsonGameInfo(data[0].dataValues))
     }
 }
@@ -176,14 +175,14 @@ export const findBoardInfo = async (req, res) => {
  * @returns 
  */
 function createGameJsonResponse(game, res) {
-        var config = JSON.parse(game[0].dataValues.config)
-        return {
-            isOver: config.isFinished,
-            checkMate: config.checkMate,
-            check: config.check,
-            turn: config.turn,
-            abandoned: (game[0].dataValues.state == boardConstants.STATE_ABANDONED ? true : false)
-        }
+    var config = JSON.parse(game[0].dataValues.config)
+    return {
+        isOver: config.isFinished,
+        checkMate: config.checkMate,
+        check: config.check,
+        turn: config.turn,
+        abandoned: (game[0].dataValues.state == boardConstants.STATE_ABANDONED ? true : false)
+    }
 }
 /**
  * Abbandona una partita.
@@ -249,14 +248,14 @@ export const setBoardState = async (req, res) => {
     let userid = Utils.decodeJwt(req.headers.authorization).userid
     let user = await findUserById(userid)
     let credits: number = Number(user[0].dataValues.credits) - boardConstants.DECR_STOPPED
-    if(req.body.state == constants.RIPRENDI_PARTITA){ 
+    if (req.body.state == constants.RIPRENDI_PARTITA) {
         await updateBoardState(boardConstants.STATE_IN_PROGRESS, req.params.boardid)
         res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_RIPRESA))
     }
-    else if(req.body.state == boardConstants.STATE_STOPPED){
-    await updateUserCredits(credits, userid)
-    await updateBoardState(boardConstants.STATE_STOPPED, req.params.boardid)
-    res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_INTERROTTA))
+    else if (req.body.state == boardConstants.STATE_STOPPED) {
+        await updateUserCredits(credits, userid)
+        await updateBoardState(boardConstants.STATE_STOPPED, req.params.boardid)
+        res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_INTERROTTA))
     }
 }
 
