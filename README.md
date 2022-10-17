@@ -106,6 +106,7 @@ Di seguito vengono riportate le possibili richieste:
 }
  ```
  
+ 
 > **POST** /boards/newboard/:level
  
  Utilizzando questa rotta è possibile creare una nuova partita, passando come parametro il livello a cui desidera giocare.
