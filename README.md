@@ -194,7 +194,7 @@ La response è la mossa dell' intelligenza artificiale
   > **GET** /boards/:boardid/info
  
  Utilizzando questa rotta è possibile ottenere lo stato di una partita.
- i possibili stati sono ripartati nella [sezione successiva](#stati di una partita)
+ i possibili stati sono ripartati nella [sezione successiva](#stati-di-una-partita)
 
 
 #### Esempio di response
@@ -212,7 +212,7 @@ La response è la mossa dell' intelligenza artificiale
    > **GET** /boards/:boardid/abandoned
  
  Utilizzando questa rotta è possibile abbandonare una partita, impostando lo stato ad 'abandoned'
- i possibili stati sono ripartati nella (sezione successiva)[#stati di una partita]
+ i possibili stati sono ripartati nella [sezione successiva](#stati-della-partita)
 
 
 #### Esempio di response
@@ -227,7 +227,7 @@ La response è la mossa dell' intelligenza artificiale
  > **GET** /boards/:boardid/stopped
  
  Utilizzando questa rotta è possibile interrompere una partita, impostando lo stato ad 'stopped'
- i possibili stati sono ripartati nella [sezione successiva](#stati di una partita)
+ i possibili stati sono ripartati nella [sezione successiva](#stati-della-partita)
 
 
 #### Esempio di response
