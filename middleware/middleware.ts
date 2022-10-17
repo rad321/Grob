@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes"
-import { constants, exceptionMsg } from "../constants/constants"
+import { boardConstants, constants, exceptionMsg } from "../constants/constants"
 import { findUser, findUserById } from "../database/queries"
 import { Utils } from "../utils/utils"
 
@@ -25,6 +25,7 @@ export const dateValidator = (req, res, next) => {
  * @param next 
  */
 export const checkSortType = (req, res, next) => {
+    console.log(res.baseUrl)
     if (req.body.sort != constants.ORD_ASCENDENTE && req.body.sort != constants.ORD_DISCENDENTE)
         res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST, exceptionMsg.ERR_CAMPO_SORT))
     else next()
@@ -36,11 +37,25 @@ export const checkSortType = (req, res, next) => {
  * @param next 
  */
 export const checkCredits = async (req, res, next) => {
-    var data = await findUser(Utils.decodeJwt(req.headers.authorization).email)
-    if (data[0].dataValues.credits <= 0)
+    const user = Utils.decodeJwt(req.headers.authorization)
+    var data = await findUser(user.email)
+    if (data[0].dataValues.credits <= 0 && !req.path.includes(constants.PATH_NEWBOARD))
         res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
-    else next()
+
+    else if (req.path.includes(constants.PATH_NEWBOARD) && req.body.color == boardConstants.PIECE_COLOR_BLACK
+        && !Utils.greaterOrEqual(Utils.getCredits(user.userid), boardConstants.DECR_CREATE_BOARD + boardConstants.DECR_MOVE))
+        res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
+    else if (req.path.includes(boardConstants.STATE_STOPPED) && !Utils.greaterOrEqual(Utils.getCredits(user.userid), boardConstants.DECR_STOPPED))
+        res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.CREDITO_INSUFFICIENTE))
+    else
+        next()
 }
+/**
+ * Verifica se l'utente è un amministratore.
+ * @param req 
+ * @param res 
+ * @param next 
+ */
 export const isAdmin = async (req, res, next) => {
     var data = await findUserById(Utils.decodeJwt(req.headers.authorization).userid)
     if (!data[0].dataValues.admin)

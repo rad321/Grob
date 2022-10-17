@@ -34,7 +34,7 @@ export const checkIfUserExist = async function (req, res, next) {
     else next()
 }
 /**
- * 
+ * Verifica se l'email è presente nel database.
  * @param req 
  * @param res 
  * @param next 
