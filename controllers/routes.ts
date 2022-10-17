@@ -1,7 +1,7 @@
 import { checkEmail, checkEmailFormat, checkIfUserExist } from "../middleware/credentials-middleware";
 import { checkEmailJwt } from "../middleware/jwt-middleware";
-import { checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
-import { abandoned, createNewGame, findGame, findGames, getHistory, getRanking, login, pieceMove, setBoardState } from "./controller";
+import { checkActiveBoards, checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
+import { abandoned, createNewGame, findBoardInfo, findBoards,getHistory, getRanking, login, pieceMove, setBoardState } from "./controller";
 import { checkCredits, checkSortType, dateValidator, isAdmin } from "../middleware/middleware";
 import { updateCredits } from "./admin-controller";
 const { signUp } = require('./controller.ts');
@@ -29,13 +29,13 @@ app.post('/signIn', jsonParser, checkEmailFormat, checkEmail, (req, res) => {
  * 
  */
 
-app.post('/boards/newboard/:level', jsonParser, checkGameLevel, checkEmailJwt, checkPlayerColor, checkReqTypes, isReqUndefined, (req, res) => {
+app.post('/boards/newboard/:level', jsonParser,checkEmailJwt,checkCredits,checkGameLevel,checkPlayerColor, checkReqTypes, isReqUndefined, (req, res) => {
     createNewGame(req, res)
 })
 /**
  * Rotta per effettuare un movimento sulla scacchiera (nuova partita o partita sospesa)
  */
-app.post('/boards/:boardid/move', jsonParser, checkEmailJwt, checkBoardId, checkGameState, checkPieceMove, (req, res) => {
+app.post('/boards/:boardid/move', jsonParser, checkEmailJwt, checkBoardId,checkActiveBoards, checkGameState, checkPieceMove, (req, res) => {
     pieceMove(req, res)
 })
 /**
@@ -45,42 +45,42 @@ app.get('/boards/:boardid/history', checkEmailJwt, (req, res) => {
     getHistory(req, res)
 })
 /**
+ * Rotta che restituisce informazioni su una o più partite
+ */
+
+app.post('/boards/:boardid?', jsonParser, checkEmailJwt,checkBoardId, dateValidator,(req, res) => {
+    findBoards(req, res)
+})
+/**
  * Rotta che restituisce lo stato di una partita
  */
 
-app.post('/boards/:boardid?', jsonParser, checkEmailJwt, dateValidator,(req, res) => {
-    findGames(req, res)
+app.get('/board/:boardid/info', jsonParser, checkEmailJwt,checkBoardId, (req, res) => {
+    findBoardInfo(req, res)
 })
 /**
- * 
- */
-
-app.get('/board/:boardid/info', jsonParser, checkEmailJwt, (req, res) => {
-    findGame(req, res)
-})
-/**
- * 
+ * Rotta utilizzata per abbandonare una partita
  */
 app.get('/boards/:boardid/abandoned', checkEmailJwt,checkGameState, (req, res) => {
     abandoned(req, res)
 })
 /**
- * 
+ * Rotta che restituisce la classifica dei giocatori
  * 
  */
 app.post('/users/ranking', jsonParser, checkSortType, (req, res) => {
     getRanking(req, res)
 })
 /**
- * 
+ * Rotta utilizzata per interrompere una partita
  */
-app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
+app.get('/boards/:boardid/stopped', checkEmailJwt,checkCredits, checkBoardId,checkGameState, (req, res) => {
     setBoardState(req, res)
 })
 /**
- * 
+ * Rotta utilizzata per agiornare il credito di un utente
  */
-app.post('/admin',jsonParser,checkEmailJwt,isAdmin, (req, res) => {
+app.put('/users/admin',jsonParser,checkEmailJwt,isAdmin, (req, res) => {
     updateCredits(req, res)
 })
 

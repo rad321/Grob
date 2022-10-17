@@ -1,3 +1,4 @@
+import { StatusCodes } from "http-status-codes";
 import moment from "moment";
 import { boardConstants, dateConstants, exceptionMsg } from "../constants/constants";
 import { findUser, findUserById } from "../database/queries";
@@ -14,7 +15,7 @@ export class Utils {
      */
     static async createJwt(req, res) {
          var user = await findUser(req.body.email)
-         if ( user.length == 0) res.json(exceptionMsg.UTENTE_INESISTENTE).status(404)
+         if ( user.length == 0) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED,exceptionMsg.UTENTE_INESISTENTE))
          else{
          var token =  jwt.sign({ email: req.body.email, password: req.body.pwd, userid : user[0].dataValues.id}, process.env.SECRET_KEY)
          res.json({ jwt :token })
@@ -30,7 +31,8 @@ export class Utils {
         return jwt.verify(token, process.env.SECRET_KEY);
     }
     /**
-     * 
+     * Funzione che crea una mappa con i dati della partita.
+     * I dati saranno utilizzati per creare e memorizzare una nuova partita.
      * @param req 
      * @param game 
      * @returns 
@@ -43,13 +45,13 @@ export class Utils {
             else if (item == boardConstants.BOARD_CONFIGURATION) map.set(item, JSON.stringify(game.exportJson()))
             else if (item == boardConstants.GAME_LEVEL) map.set(item, req.params.level)
             else if (item == boardConstants.PLAYER) map.set(item, this.decodeJwt(req.headers.authorization).userid)
-            else if( item == boardConstants.GAME_STATE) map.set(item,boardConstants.STATE_STOPPED)
+            else if( item == boardConstants.GAME_STATE) map.set(item,boardConstants.STATE_IN_PROGRESS)
             else map.set(item, req.body[item])
         })
         return map
     }
 /**
- * 
+ * Funzione che genera un oggetto  con le caratteristiche delle partite di un determinato utente.
  * @param board 
  * @returns 
  */
@@ -59,13 +61,15 @@ export class Utils {
             boardId: board.id,
             player: board.player,
             nMoves: Object.keys(JSON.parse(board.history)).length,
-            state : board.state
+            state : board.state,
+            startDate : board.startdate
         }
         games.push(game)
     return games
 }
 /**
- * 
+ * Funzione per la validazione di una data.
+ * La validazione avviene con una verifica del formato ed una verifica del range di date ammissibile 
  * @param date 
  * @returns 
  */
@@ -80,7 +84,7 @@ static dateValidator(date : string ) : boolean{
    } else return false
 }
 /**
- * 
+ * Funzione che genera un oggetto che contiene i dati dei giocatori.
  * @param ranking 
  * @param type 
  * @returns 
@@ -96,16 +100,40 @@ static createRanking(ranking,type) {
     })
     return list
 }
+/**
+ * Funzione che crea un json.
+ * Questa funzione è stata utilizzata per generare i messaggi di errore/successo.
+ * @param statusCode 
+ * @param phrase 
+ * @returns 
+ */
 static getReasonPhrase(statusCode, phrase){
     return { msg : statusCode+", "+ phrase}
 }
+/**
+ * Funzione che ritorna il credito residuo di un utente
+ * @param id 
+ * @returns 
+ */
 static async getCredits(id){
     let user = await findUserById(id)
      return user[0].dataValues.credits
 }
+/**
+ * Funzione che verifica se un numero e maggiore o uguale di un altro
+ * @param a 
+ * @param b 
+ * @returns 
+ */
 static greaterOrEqual(a,b){
     if ( a >= b ) return true
     else return false
 }
+static userPoints(a,b){
+    return (new Array).push(a.wins-a.defeats)
+
 
 }
+}
+
+

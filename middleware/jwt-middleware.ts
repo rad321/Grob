@@ -3,7 +3,7 @@ import { constants, exceptionMsg } from "../constants/constants"
 import { findUser } from "../database/queries"
 import { Utils } from "../utils/utils"
 /**
- * 
+ * Verifica se l'email presente nel payload esiste a db.
  * @param req 
  * @param res 
  * @param next 

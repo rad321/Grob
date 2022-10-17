@@ -30,7 +30,8 @@ export const constants = {
     ORD_ASCENDENTE : "asc",
     ORD_DISCENDENTE : "desc",
     EMPTY_PARAM_BOARDID : ":boardid",
-    UNDEFINED : 'undefined'
+    UNDEFINED : 'undefined',
+    PATH_NEWBOARD : 'boards/newboard'
 }
 export const exceptionMsg = {
     UTENTE_INESISTENTE : "Utente inesistente, verifica le credenziali inserite",
@@ -54,7 +55,9 @@ export const exceptionMsg = {
     ERR_ADMIN : "Questa rotta può essere utilizzata solo con una utenza amministratore",
     ERR_UPDATE_CREDITS : "La modifica dei crediti non è andata a buon fine, si è verificato il seguente errore: ",
     ERR_LIVELLO_INESISTENTE : "Il livello inserito è insistente, inserire un livello compreso tra 0 e 4",
-    ERR_EMAIL_NON_VALIDA : "Email non valida"
+    ERR_EMAIL_NON_VALIDA : "Email non valida",
+    ERR_NUMERO_PARTITE_INIZIATE : "Non è possibile giocare più di una partita alla volta",
+    ERR_PARTITA_INTERROTTA : "La partita è già stata interrotta"
 }
 export const successMsg = {
     SIGNUP_EFFETTUATO : "Registrazione effettuata con successo!",

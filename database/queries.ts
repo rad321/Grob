@@ -7,7 +7,7 @@ var { board } = require('../models/boards.ts');
 let today = new Date().toLocaleDateString()
 
 /**
- * 
+ * Crea una nuova utenza.
  * @param req 
  */
 export const addNewAccount = async (req) => {
@@ -19,32 +19,29 @@ export const addNewAccount = async (req) => {
         defeats: 1,
         draw: 1
     })
-
 }
 
 /**
- * 
+ * Restituisce un utente in base alla e-mail.
  * @param email 
  * @returns 
  */
-
 export const findUser = async (email) => {
     return await user.findAll({
         where: {
             email: email
         }
     });
-
 }
 /**
- * 
+ * Restituisce tutti gli utenti presenti nel database
  * @returns 
  */
 export const findAllUsers = async () => {
     return await user.findAll()
 }
 /**
- * 
+ * Aggiungi una nuovo partita nel database.
  * @param map 
  * @returns 
  */
@@ -60,7 +57,7 @@ export const addNewGame = async (map) => {
     })
 }
 /**
- * 
+ * Aggiorna configuraizone e storico di una partita.
  * @param config 
  * @param history 
  * @param id 
@@ -74,7 +71,7 @@ export const updateBoard = async (config, history, id) => {
 
 }
 /**
- * 
+ * Aggiorna il numero di vittorie di un utente
  * @param id 
  */
 export const updateUserWin = async (id) =>{
@@ -85,10 +82,9 @@ export const updateUserWin = async (id) =>{
             id : id
         }
     })
-
 }
 /**
- * 
+ * Aggiorna il numero di sconfitte di un utente
  * @param id 
  */
 export const updateUserDef = async (id) => {
@@ -101,7 +97,7 @@ export const updateUserDef = async (id) => {
     })
 }
 /**
- * 
+ * Funzione che restituisce un utente in base al suo Id.
  * @param id 
  * @returns 
  */
@@ -111,10 +107,9 @@ export const findUserById = async (id) =>{
             id: id
         }
     });
-
 }
 /**
- * 
+ * Aggiorna i crediti di un utente.
  * @param credits 
  * @param id 
  * @returns 
@@ -124,20 +119,18 @@ export const updateUserCredits = async (credits,id) =>{
         where : {
             id : id 
         }
-    })
-    
+    }) 
 }
 /**
- * 
+ * Aggiorna lo stato di una partita.
  * @param state 
  * @param id 
  */
 export const updateBoardState = async (state,id) =>{
     return await board.update({state : state },{ where : { id : id} })
-
 }
 /**
- * 
+ * Restituisce le partitai in base alla data di inizio.
  * @param req 
  * @returns 
  */
@@ -147,7 +140,7 @@ export const findGamesByDate = async (req) => {
     })
 }
 /**
- * 
+ * Restituisce le partite in base all' ID della partita
  * @param boardId 
  * @param userId 
  * @returns 
@@ -161,7 +154,7 @@ export const findGameByBoardId = async (boardId, userId) => {
     })
 }
 /**
- * 
+ * Restituisce le partite in base all' ID del utente.
  * @param userId 
  * @returns 
  */
@@ -173,7 +166,8 @@ export const findGamesByUserId = async (userId) => {
     })
 }
 /**
- * 
+ * Funzione utilizzata per abbandonare una partita.
+ * Effettua il set dello stato nel database
  * @param boardid 
  * @param userid 
  * @returns 
@@ -183,4 +177,17 @@ export const abandonedGame = async (boardid,userid) =>{
    var config = JSON.parse(games[0].dataValues.config)
    config.isFinished=true
     return await board.update({ state : boardConstants.STATE_ABANDONED,config : JSON.stringify(config)},{ where : { id : boardid}})
+}
+/**
+ * Funzione che restituisce le partite attive di un giocatore
+ * @param player 
+ * @returns 
+ */
+export const findActiveGames = async (player)=>{
+    return await board.findAll({
+        where : {
+            player : player,
+            state : boardConstants.STATE_IN_PROGRESS
+        }
+    })
 }
