@@ -2,9 +2,9 @@
   "name": "grob",
   "version": "1.0.0",
   "description": "Progetto Programmazione Avanzata",
-  "main": "index.ts",
+  "main": "routes.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "ts-node routes.ts"
   },
   "repository": {
     "type": "git",

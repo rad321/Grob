@@ -31,7 +31,8 @@ export const constants = {
     ORD_DISCENDENTE : "desc",
     EMPTY_PARAM_BOARDID : ":boardid",
     UNDEFINED : 'undefined',
-    PATH_NEWBOARD : 'boards/newboard'
+    PATH_NEWBOARD : 'boards/newboard',
+    PATH_ALLBOARDS : '/boards/:boardid?'
 }
 export const exceptionMsg = {
     UTENTE_INESISTENTE : "Utente inesistente, verifica le credenziali inserite",

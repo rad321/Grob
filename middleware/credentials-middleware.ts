@@ -29,7 +29,7 @@ export const checkEmailFormat = function (req, res, next) {
  * @param next 
  */
 export const checkIfUserExist = async function (req, res, next) {
-    var user = await findUser(req.body.email)
+    const user = await findUser(req.body.email)
     if (user.length != 0) res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT,exceptionMsg.ERR_CREAZIONE_UTENZA))
     else next()
 }
@@ -40,7 +40,7 @@ export const checkIfUserExist = async function (req, res, next) {
  * @param next 
  */
 export const checkEmail = async function (req, res, next) {
-    var user = await findUser(req.body.email)
+    const user = await findUser(req.body.email)
     if (user.length == 0) res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT,exceptionMsg.ERR_JWT_EMAIL))
     else next()
 }

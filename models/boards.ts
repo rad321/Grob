@@ -1,11 +1,7 @@
 import { databaseConstants } from "../constants/constants";
+import { SequelizeSingleton } from "../database/sequelize-singleton";
 const { Model, DataTypes, Sequelize } = require('sequelize');
-var path = require("path")
-require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME,process.env.DB_PASSWORD, {
-    host: process.env.HOST,
-    dialect: process.env.DB_DIALECT
-});
+const sequelize  = SequelizeSingleton.getConnection();
 
 export class boards extends Model {}
 /**

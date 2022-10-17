@@ -14,10 +14,9 @@ export const addNewAccount = async (req) => {
     await user.create({
         email: req.body.email,
         pwd: req.body.pwd,
-        credits: req.body.credits,
-        wins: 1,
-        defeats: 1,
-        draw: 1
+        credits: 1,
+        wins: 0,
+        defeats: 0
     })
 }
 

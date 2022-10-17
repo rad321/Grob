@@ -9,7 +9,6 @@ import { StatusCodes } from "http-status-codes"
  * @param next 
  */
 export const checkGameLevel = (req, res, next) => {
-    console.log(req.baseUrl)
     if (req.params.level >= 0 && req.params.level < 5)
         next()
     else
@@ -58,13 +57,16 @@ export const checkReqTypes = (req, res, next) => {
  * @param next 
  */
 export const checkBoardId = async (req, res, next) => {
+    console.log(req.originalUrl)
     if (req.params.boardid != constants.EMPTY_PARAM_BOARDID) {
         let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
         if (data.length == 0)
             res.status(StatusCodes.NOT_FOUND).json(Utils.getReasonPhrase(StatusCodes.NOT_FOUND, exceptionMsg.PARTITA_INESISTENTE_BY_ID))
         else
             next()
-    } else
+    } else if (req.params.boardid == constants.EMPTY_PARAM_BOARDID && req.originalUrl == constants.PATH_ALLBOARDS)
+        next()
+    else
         res.status(StatusCodes.NOT_FOUND).json(Utils.getReasonPhrase(StatusCodes.NOT_FOUND, exceptionMsg.ERR_PARAM_BOARDID))
 }
 /**
@@ -90,13 +92,12 @@ export const checkOptionalBoardId = async (req, res, next) => {
  */
 export const checkPieceMove = async (req, res, next) => {
     var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
-    let moves = JSON.parse(data[0].dataValues.config).moves
+    let moves: object = JSON.parse(data[0].dataValues.config).moves
     if (req.body.from in moves && moves[req.body.from].includes(req.body.to))
         next()
     else
         res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST, exceptionMsg.ERR_MOSSA_NON_VALIDA))
 }
-
 /**
  * Verifica lo stato della partita.
  * Genera messaggio di errore in caso di partita già conclusa
@@ -105,7 +106,7 @@ export const checkPieceMove = async (req, res, next) => {
  * @param next 
  */
 export const checkGameState = async (req, res, next) => {
-    var data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+    const data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
     if (data[0].dataValues.state == boardConstants.STATE_ABANDONED || data[0].dataValues.state == boardConstants.STATE_WIN
         || data[0].dataValues.state == boardConstants.STATE_DEFEAT || JSON.parse(data[0].dataValues.config).isFinished)
         res.status(StatusCodes.CONFLICT).json(Utils.getReasonPhrase(StatusCodes.CONFLICT, exceptionMsg.PARTITA_CONCLUSA))
@@ -120,9 +121,9 @@ export const checkGameState = async (req, res, next) => {
  * @param res 
  * @param next 
  */
-export const checkActiveBoards = async (req,res,next) =>{
-    var boards = await findActiveGames(Utils.decodeJwt(req.headers.authorization).userid)
-    if(boards.length > 1) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED,exceptionMsg.ERR_NUMERO_PARTITE_INIZIATE))
+export const checkActiveBoards = async (req, res, next) => {
+    const boards = await findActiveGames(Utils.decodeJwt(req.headers.authorization).userid)
+    if (boards.length > 1) res.status(StatusCodes.UNAUTHORIZED).json(Utils.getReasonPhrase(StatusCodes.UNAUTHORIZED, exceptionMsg.ERR_NUMERO_PARTITE_INIZIATE))
     else next()
 
 }

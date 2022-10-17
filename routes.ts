@@ -1,10 +1,9 @@
-import { checkEmail, checkEmailFormat, checkIfUserExist } from "../middleware/credentials-middleware";
-import { checkEmailJwt } from "../middleware/jwt-middleware";
-import { checkActiveBoards, checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, isReqUndefined } from "../middleware/game-middleware";
-import { abandoned, createNewGame, findBoardInfo, findBoards,getHistory, getRanking, login, pieceMove, setBoardState } from "./controller";
-import { checkCredits, checkSortType, dateValidator, isAdmin } from "../middleware/middleware";
-import { updateCredits } from "./admin-controller";
-const { signUp } = require('./controller.ts');
+import { checkEmail, checkEmailFormat, checkIfUserExist } from "./middleware/credentials-middleware";
+import { checkEmailJwt } from "./middleware/jwt-middleware";
+import { checkActiveBoards, checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, isReqUndefined } from "./middleware/game-middleware";
+import { abandoned, createNewGame, findBoardInfo, findBoards,getHistory, getRanking, login, pieceMove, setBoardState,signUp } from "./controllers/controller";
+import { checkCredits, checkSortType, dateValidator, isAdmin } from "./middleware/middleware";
+import { updateCredits } from "./controllers/admin-controller";
 var express = require('express');
 var body = require('body-parser');
 var path = require('path');

@@ -1,5 +1,8 @@
 FROM node:lts-stretch-slim
 WORKDIR /usr/src/app
 COPY . .
+COPY package.json .
 RUN npm install
-CMD ["node", "index.ts"]
+RUN npm install -g typescript
+RUN npm install -g ts-node
+CMD ["npm", "start"]

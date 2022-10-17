@@ -2,7 +2,7 @@ CREATE DATABASE grobdb;
 \c grobdb
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
-    email VARCHAR(50),
+    email VARCHAR(80),
     pwd VARCHAR(40),
     credits NUMERIC,
     wins INTEGER,
@@ -23,10 +23,10 @@ CREATE TABLE boards(
 
 --inserimento utenti
 INSERT INTO users(email, pwd,credits,wins,defeats,admin) VALUES
-('alex@progettopa.it', 'progettopa',3,4,2,false),
-('carlo@progettopa.it', 'progettopa',1,1,3,false),
-('marco@progettopa.it', 'progettopa',0,7,6,1,false),
-('alex@progettopa.it', 'progettopa',2,4,2,true),
+('alex@progettopa.it','progettopa',3,4,2,false),
+('carlo@progettopa.it','progettopa',1,1,3,false),
+('marco@progettopa.it','progettopa',0.7,6,1,false),
+('admin@progettopa.it','progettopa',2,4,2,true);
 
 --inserimento partite
 INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
@@ -39,9 +39,7 @@ INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
 '[]',
 '16/10/2022',
 2,
-null),
-
-INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
+'ip'),
 (1,
 'black',
 '{"moves":{"B1":["C3","A3"],"G1":["H3","F3"],"A2":["A3","A4"],"B2":["B3","B4"],"C2":["C3","C4"],"D2":["D3","D4"],"E2":["E3","E4"],"F2":["F3","F4"],
@@ -51,9 +49,7 @@ INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
 '[]',
 '16/10/2022',
 2,
-null),
-
-INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
+'stopped'),
 (2,
 'white',
 '{"moves":{"B1":["C3","A3"],"G1":["H3","F3"],"A2":["A3","A4"],"B2":["B3","B4"],"C2":["C3","C4"],"D2":["D3","D4"],"E2":["E3","E4"],"F2":["F3","F4"],
@@ -63,9 +59,7 @@ INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
 '[]',
 '15/10/2022',
 1,
-null),
-
-INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
+'ip'),
 (3,
 'black',
 '{"moves":{"B1":["C3","A3"],"G1":["H3","F3"],"A2":["A3","A4"],"B2":["B3","B4"],"C2":["C3","C4"],"D2":["D3","D4"],"E2":["E3","E4"],"F2":["F3","F4"],
@@ -75,9 +69,7 @@ INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
 '[]',
 '16/10/2022',
 2,
-null),
-
-INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
+'stopped'),
 (3,
 'black',
 '{"moves":{"B1":["C3","A3"],"G1":["H3","F3"],"A2":["A3","A4"],"B2":["B3","B4"],"C2":["C3","C4"],"D2":["D3","D4"],"E2":["E3","E4"],"F2":["F3","F4"],
@@ -87,9 +79,7 @@ INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
 '[]',
 '16/10/2022',
 1,
-null),
-
-INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
+'stopped'),
 (4,
 'white',
 '{"moves":{"B1":["C3","A3"],"G1":["H3","F3"],"A2":["A3","A4"],"B2":["B3","B4"],"C2":["C3","C4"],"D2":["D3","D4"],"E2":["E3","E4"],"F2":["F3","F4"],
@@ -99,4 +89,4 @@ INSERT INTO boards(player, color,config,history,startDate,level,state) VALUES
 '[]',
 '14/10/2022',
 1,
-null),
+'abandoned');
