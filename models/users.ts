@@ -3,7 +3,6 @@ import { databaseConstants } from "../constants/constants";
 import { SequelizeSingleton } from "../database/sequelize-singleton";
 
 const sequelize  = SequelizeSingleton.getConnection();
-
 class users extends Model{}
 /**
  * Model della tabella users

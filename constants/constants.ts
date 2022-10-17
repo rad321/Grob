@@ -32,7 +32,9 @@ export const constants = {
     EMPTY_PARAM_BOARDID : ":boardid",
     UNDEFINED : 'undefined',
     PATH_NEWBOARD : 'boards/newboard',
-    PATH_ALLBOARDS : '/boards/:boardid?'
+    PATH_ALLBOARDS : '/boards/:boardid?',
+    MOVE : 'move',
+    RIPRENDI_PARTITA : 'resume'
 }
 export const exceptionMsg = {
     UTENTE_INESISTENTE : "Utente inesistente, verifica le credenziali inserite",
@@ -65,6 +67,7 @@ export const successMsg = {
     PARTITA_INIZIATA : "Partita iniziata!",
     PARTITA_CONCLUSA : "partita conclusa",
     PARTITA_ABBANDONATA : "La partita è stata abbandonata",
+    PARTITA_RIPRESA : "La partita è stata ripresa",
     PARTITA_INTERROTTA : "La partita è stata interrotta",
     UPDATE_CREDITS : "La modifica dei crediti è avvenuta con successo"
 }

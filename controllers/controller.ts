@@ -67,10 +67,9 @@ export const pieceMove = async (req, res) => {
     let userid = Utils.decodeJwt(req.headers.authorization).userid
     let board = data[0].dataValues
     let game = new chessEngine.Game(JSON.parse(board.config))
-    if (isStopped(board, userid))
-        updateBoardState(boardConstants.STATE_IN_PROGRESS, board.id)
+    
     // verifica se è il turno del player
-    if (JSON.parse(board.config).turn == board.color) {
+      if (JSON.parse(board.config).turn == board.color) {
         //verifica lo stato della partita
         if (checkState(board, board.color, userid)) {
             game.move(req.body.from, req.body.to)
@@ -240,7 +239,8 @@ function sortUsers(ranking, sortType) {
     return Utils.createRanking(ranking, sortType)
 }
 /**
- * Aggiornamento dello stato di una partita
+ * Aggiornamento dello stato di una partita.
+ * Nel body è possibile inserire il nuovo stato, scegliendo se riprendere una partita o interromperla.
  * @param req 
  * @param res 
  */
@@ -248,10 +248,17 @@ export const setBoardState = async (req, res) => {
     let userid = Utils.decodeJwt(req.headers.authorization).userid
     let user = await findUserById(userid)
     let credits: number = Number(user[0].dataValues.credits) - boardConstants.DECR_STOPPED
+    if(req.body.state == constants.RIPRENDI_PARTITA){ 
+        await updateBoardState(boardConstants.STATE_IN_PROGRESS, req.params.boardid)
+        res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_RIPRESA))
+    }
+    else if(req.body.state == boardConstants.STATE_STOPPED){
     await updateUserCredits(credits, userid)
     await updateBoardState(boardConstants.STATE_STOPPED, req.params.boardid)
     res.status(StatusCodes.OK).json(Utils.getReasonPhrase(StatusCodes.OK, successMsg.PARTITA_INTERROTTA))
+    }
 }
+
 
 
 

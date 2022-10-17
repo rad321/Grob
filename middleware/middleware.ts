@@ -25,7 +25,6 @@ export const dateValidator = (req, res, next) => {
  * @param next 
  */
 export const checkSortType = (req, res, next) => {
-    console.log(res.baseUrl)
     if (req.body.sort != constants.ORD_ASCENDENTE && req.body.sort != constants.ORD_DISCENDENTE)
         res.status(StatusCodes.BAD_REQUEST).json(Utils.getReasonPhrase(StatusCodes.BAD_REQUEST, exceptionMsg.ERR_CAMPO_SORT))
     else next()

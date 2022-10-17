@@ -1,6 +1,6 @@
 import { checkEmail, checkEmailFormat, checkIfUserExist } from "./middleware/credentials-middleware";
 import { checkEmailJwt } from "./middleware/jwt-middleware";
-import { checkActiveBoards, checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, isReqUndefined } from "./middleware/game-middleware";
+import { checkActiveBoards, checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, checkResume, isReqUndefined } from "./middleware/game-middleware";
 import { abandoned, createNewGame, findBoardInfo, findBoards,getHistory, getRanking, login, pieceMove, setBoardState,signUp } from "./controllers/controller";
 import { checkCredits, checkSortType, dateValidator, isAdmin } from "./middleware/middleware";
 import { updateCredits } from "./controllers/admin-controller";
@@ -73,7 +73,7 @@ app.post('/users/ranking', jsonParser, checkSortType, (req, res) => {
 /**
  * Rotta utilizzata per interrompere una partita
  */
-app.get('/boards/:boardid/stopped', checkEmailJwt,checkCredits, checkBoardId,checkGameState, (req, res) => {
+app.post('/boards/:boardid/stopped',jsonParser,checkEmailJwt,checkCredits,checkResume,checkBoardId,checkGameState, (req, res) => {
     setBoardState(req, res)
 })
 /**
