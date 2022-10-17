@@ -230,7 +230,7 @@ La response è la mossa dell' intelligenza artificiale
  Nel body viene specificato lo stato che può essere 'resume' o 'stopped'
  i possibili stati sono ripartati nella [sezione successiva](#stati-della-partita)
 
-#### Esempio di response
+#### Esempio di request
 
  ```
 {
