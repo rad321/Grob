@@ -1,6 +1,8 @@
-# Grob
 
-
+<p align="center" style="margin-top: 10px;">
+<img src="https://github.com/alexxdediu/Grob/blob/main/public/img/logo.png" width="350" > 
+ </p><br>
+ 
 ## OBIETTIVO DEL PROGETTO
 In questo progetto è presente un back-end che implementa il gioco degli scacchi. Il codice è stato realizzato con l'utilizzo di [Node.js](https://nodejs.org/en/) e del modulo <a href="https://www.npmjs.com/package/js-chess-engine">JS-CHESS-ENGINE<a>, necessario per gestire tutti i possibile eventi generati dal utente.
  
@@ -323,8 +325,10 @@ La response è la mossa dell' intelligenza artificiale
 
 
 ##STATI DELLA PARTITA
+ 
 ## DIAGRAMMI UML
- ###DIAGRAMMI DEI CASI D'USO
+ 
+### DIAGRAMMI DEI CASI D'USO
 - Diagramma dei casi d'uso dell'utente:
 <p align="center" style="margin-top: 10px;">
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-user.jpg" width="750" height="600"> 
@@ -334,7 +338,8 @@ La response è la mossa dell' intelligenza artificiale
  <p align="center" style="margin-top: 10px;">
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/casi-duso-admin.jpg" width="550" height="280"> 
  </p>
- ### DIAGRAMMI DELLE SEQUENZE
+ 
+### DIAGRAMMI DELLE SEQUENZE
  
  - Registrazione
  
@@ -371,10 +376,11 @@ La response è la mossa dell' intelligenza artificiale
   <p align="center" style="margin-top: 10px;">
 <img src="https://github.com/alexxdediu/Grob/blob/main/UML/pieceMove.jpg" width="800" height="280"> 
  </p>
+ 
   - Classsifica giocatori
  
   <p align="center" style="margin-top: 10px;">
-<img src="https://github.com/alexxdediu/Grob/blob/main/UML/ranking.jpg" width="800" height="280"> 
+<img src="https://github.com/alexxdediu/Grob/blob/main/UML/ranking.jpeg" width="800" height="280"> 
  </p>
  
   - Modifica crediti degli utenti
@@ -384,17 +390,19 @@ La response è la mossa dell' intelligenza artificiale
  </p>
  
  In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
-
- ### DIAGRAMMI DEI PACKAGE
-In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
-
  
  ## Design Pattern
+ 
  ### SINGLETON
-  <p align="center" style="margin-top: 10px;">
+
+Per lo sviluppo dell'applicazione è stato utilizzato il design pattern Singleton che ha lo scopo di garantire che di una determinata classe venga creata una e una sola istanza, e di fornire un punto di accesso globale a tale istanza.
+ 
+ <p align="center" style="margin-top: 10px;">
 <img src="https://github.com/alexxdediu/Grob/blob/main/public/img/singleton.png"width="500" height="300"> 
  </p>
+ 
  ### MC
+ 
  Per lo sviluppo dell'applicazione è stato utilizzato il pattern M(V)C, che consente di suddividere il progetto in 2 parti:
  
 *  Models
@@ -408,7 +416,7 @@ I ***controllers*** vengono utilizzati come intermediario tra views e models, in
 <img src="https://miro.medium.com/max/1000/1*23_6IjYfnybitGq4jO0QCg.gif" width="400" height="300"> 
  </p>
  
- I models utilizzati sono presenti nei file ***board.ts*** e ***users.ts***  e sono stati definiti con ***sequelize.init(modelName, attributes, options)***
+ i models utilizzati sono presenti nei file ***board.ts*** e ***users.ts***  e sono stati definiti con ***sequelize.init(modelName, attributes, options)***
  
  #### Esempio model sequelize
  
@@ -457,6 +465,7 @@ I ***controllers*** vengono utilizzati come intermediario tra views e models, in
 Tra i controllers sono presenti gli effettivi controllers e  i file ***auth*** e  ***routes.ts*** che contengono rispettivamente i middleware e le rotte utilizzare
 
 #### Esempio rotta
+ 
  ```
 app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
     setBoardState(req, res)
@@ -474,6 +483,20 @@ app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
  
 
 ## AVVIO DEL PROGETTO CON DOCKER
+ 
+All'avvio dell'applicazione il database sarà popolato con una tabella ``` users``` con 4 utenti (di cui uno con profilo 'admin)', con email ```alex@progettopa.it```, ```admin@progettopa.it```,```marco@progettopa.it``` e ```carlo@progettopa.it```.
+Inoltre sarà presente anche una tabella ```boards``` in cui saranno presenti 5 board, in modo da poter effettuare i test in modo corretto.
+
+per avviare Docker è necessario avviare il docker-compose con il seguente comando
+
+``` docker-compose up ```
+
+Il servizio sarà attivo alla porta 8080.
+
+## Test
+
+Per realizzare i test del progetto è stato inserito il file ``` Grob.postman_collection.json ``` nella repository, che a sua volta dovrà essere importato all'interno di Postman.
+
 
 ## FRAMEWORK/MODULI UTILIZZATI
  
@@ -489,5 +512,8 @@ app.get('/boards/:boardid/stopped', checkEmailJwt, checkBoardId, (req, res) => {
 ## AUTORE
 
 **Alexandru Dediu**
+ 
+ 
+ 
 
 
