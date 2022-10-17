@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "9c008a28-5368-4ff6-910f-2e5277d2d95c",
+		"name": "Grob",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23716433"
+	},
+	"item": [
+		{
+			"name": "SignIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"alex@progettopa.it\",\n    \"pwd\": \"progettopa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/signIn",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"prova@progettopa.it\",\n    \"pwd\": \"progettopa\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/signUp",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"signUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newBoard",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAcHJvZ2V0dG9wYS5pdCIsInBhc3N3b3JkIjoicHJvZ2V0dG9wYSIsInVzZXJpZCI6MSwiaWF0IjoxNjY2MDA2OTEyfQ.z73sRF78tCk4lHT-7mWoeZ6cdkkXmCwXWGECVpeiUac",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"color\": \"white\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/boards/newboard/:level",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"boards",
+						"newboard",
+						":level"
+					],
+					"variable": [
+						{
+							"key": "level",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "move",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAcHJvZ2V0dG9wYS5pdCIsInBhc3N3b3JkIjoicHJvZ2V0dG9wYSIsInVzZXJpZCI6MSwiaWF0IjoxNjY2MDA2OTEyfQ.z73sRF78tCk4lHT-7mWoeZ6cdkkXmCwXWGECVpeiUac",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\": \"B1\",\n    \"to\": \"C3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/boards/:boardid/move",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"boards",
+						":boardid",
+						"move"
+					],
+					"variable": [
+						{
+							"key": "boardid",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "allBoards",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmxvQGdtYWlsLml0IiwicGFzc3dvcmQiOiJjYXJsbyIsInVzZXJpZCI6MSwiaWF0IjoxNjY1OTYxMDUyfQ.LKsxOT8Gnc4vYN8-_d9f1ccrywv-yxruZuhmcDi9StM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3200/boards/:boardid?",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"boards",
+						":boardid"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					],
+					"variable": [
+						{
+							"key": "boardid",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "infoBoard",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmxvQGdtYWlsLml0IiwicGFzc3dvcmQiOiJjYXJsbyIsInVzZXJpZCI6MSwiaWF0IjoxNjY1OTYxMDUyfQ.LKsxOT8Gnc4vYN8-_d9f1ccrywv-yxruZuhmcDi9StM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/board/:boardid/info",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"board",
+						":boardid",
+						"info"
+					],
+					"variable": [
+						{
+							"key": "boardid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "abandoned",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmxvQGdtYWlsLml0IiwicGFzc3dvcmQiOiJjYXJsbyIsInVzZXJpZCI6MywiaWF0IjoxNjY1NjUyMTY1fQ.PTIH5HF6r2v3CqNXi3QY_wD0920G-KdFOjztK--luyg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3200/boards/:boardid/abandoned",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"boards",
+						":boardid",
+						"abandoned"
+					],
+					"variable": [
+						{
+							"key": "boardid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "history",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmxvQGdtYWlsLml0IiwicGFzc3dvcmQiOiJjYXJsbyIsInVzZXJpZCI6MywiaWF0IjoxNjY1NjUyMTY1fQ.PTIH5HF6r2v3CqNXi3QY_wD0920G-KdFOjztK--luyg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3200/boards/:boardid/history",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"boards",
+						":boardid",
+						"history"
+					],
+					"variable": [
+						{
+							"key": "boardid",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stopped",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsZXhAcHJvZ2V0dG9wYS5pdCIsInBhc3N3b3JkIjoicHJvZ2V0dG9wYSIsInVzZXJpZCI6MSwiaWF0IjoxNjY2MDA2OTEyfQ.z73sRF78tCk4lHT-7mWoeZ6cdkkXmCwXWGECVpeiUac",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"state\" : \"resume\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/boards/:boardid/stopped",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"boards",
+						":boardid",
+						"stopped"
+					],
+					"variable": [
+						{
+							"key": "boardid",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ranking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"sort\" : \"desc\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3200/users/ranking",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"users",
+						"ranking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhcmxvQGdtYWlsLml0IiwicGFzc3dvcmQiOiJjYXJsbyIsInVzZXJpZCI6MSwiaWF0IjoxNjY1ODM5MzY1fQ.UpoYSPoiLBGiga388n_vpkiPSJzPjbzeBRaAEvG8PnQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"alex@progettopa.it\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3200/users/admin",
+					"host": [
+						"localhost"
+					],
+					"port": "3200",
+					"path": [
+						"users",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
