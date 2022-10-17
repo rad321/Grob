@@ -132,17 +132,18 @@ async function updateUserState(state, id) {
  * @param res 
  */
 export const findBoards = async (req, res) => {
+    const id = Utils.decodeJwt(req.headers.authorization).userid;
     if (req.params.boardid == constants.EMPTY_PARAM_BOARDID) {
         if (req.body.date != undefined) {
-            let gamesByDate = await findGamesByDate(req)
+            let gamesByDate = await findGamesByDate(req,id)
             if (gamesByDate.length == 0) res.status(StatusCodes.NOT_FOUND).json(Utils.getReasonPhrase(StatusCodes.NOT_FOUND, exceptionMsg.PARTITE_INESISTENTI_BY_DATE))
             else res.status(StatusCodes.OK).json(setResponseItems(games, gamesByDate))
         } else {
-            var data = await findGamesByUserId(Utils.decodeJwt(req.headers.authorization).userid)
+            var data = await findGamesByUserId(id)
             res.status(StatusCodes.OK).json(setResponseItems(games, data))
         }
     } else {
-        let data = await findGameByBoardId(req.params.boardid, Utils.decodeJwt(req.headers.authorization).userid)
+        let data = await findGameByBoardId(req.params.boardid,id)
         res.status(StatusCodes.OK).json(Utils.createJsonGameInfo(data[0].dataValues))
     }
 }

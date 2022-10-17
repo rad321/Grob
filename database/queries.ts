@@ -133,9 +133,9 @@ export const updateBoardState = async (state,id) =>{
  * @param req 
  * @returns 
  */
-export const findGamesByDate = async (req) => {
+export const findGamesByDate = async (req,id) => {
     return await board.findAll({
-        where: { startdate: req.body.date }
+        where: { startdate: req.body.date, player : id }
     })
 }
 /**
