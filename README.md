@@ -55,8 +55,7 @@ Di seguito vengono riportate le possibili richieste:
 |/boards/:boardid| |GET|
 |/boards/:boardid/abandoned | |GET|
 |/boards/:boardid/history | |GET|
-|/boards/:boardid/stopped | |GET|
-|/boards/:boardid/stopped | |GET|
+|/boards/:boardid/stopped | state |POST|
 |/users/admin |email,credits |PUT|
 |/users/ranking | sort |POST|
  
@@ -106,6 +105,7 @@ Di seguito vengono riportate le possibili richieste:
  
 }
  ```
+ 
  
 > **POST** /boards/newboard/:level
  
@@ -224,18 +224,26 @@ La response è la mossa dell' intelligenza artificiale
 }
  ```
  
- > **GET** /boards/:boardid/stopped
+ > **POST** /boards/:boardid/stopped
  
- Utilizzando questa rotta è possibile interrompere una partita, impostando lo stato ad 'stopped'
+ Utilizzando questa rotta è possibile interrompere o riprendere una partita.
+ Nel body viene specificato lo stato che può essere 'resume' o 'stopped'
  i possibili stati sono ripartati nella [sezione successiva](#stati-della-partita)
 
+#### Esempio di request
 
+ ```
+{
+    "state" : "resume"
+}
+ ```
+ 
 #### Esempio di response
  
  
  ```
 {
-    "msg": "200, la partita è stata interrotta"
+    "msg": "200, la partita è stata ripresa"
 }
  ```
  
