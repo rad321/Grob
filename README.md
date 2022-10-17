@@ -323,7 +323,7 @@ La response è la mossa dell' intelligenza artificiale
 }
   ```
 
-##STATI DELLA PARTITA
+## STATI DELLA PARTITA
  
 Di seguito sono riportati tutti i possibili stati di una partita.
 Gli stati di una partita vengono aggiornati in base alle rotte utilizzate.
