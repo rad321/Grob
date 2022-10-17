@@ -390,10 +390,6 @@ La response è la mossa dell' intelligenza artificiale
  </p>
  
  In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
-
- ### DIAGRAMMI DEI PACKAGE
-In questa sezione non sono stati inseriti tutti i diagrammi, le restanti immagini sono presenti nella cartella [UML](https://github.com/alexxdediu/Grob/blob/main/UML)
-
  
  ## Design Pattern
  
