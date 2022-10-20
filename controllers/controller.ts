@@ -3,9 +3,9 @@ import { boardConstants, constants, exceptionMsg, successMsg } from "../constant
 import { abandonedGame, addNewGame, findAllUsers, findGameByBoardId, findGamesByDate, findGamesByUserId, findUser, findUserById, updateBoard, updateBoardState, updateUserCredits, updateUserDef, updateUserWin } from "../database/queries";
 import { Utils } from "../utils/utils";
 import { updateCredits } from "./admin-controller";
-var chessEngine = require('js-chess-engine');
-var path = require("path")
-var { addNewAccount } = require("../database/queries.ts");
+const chessEngine = require('js-chess-engine');
+const path = require("path")
+const { addNewAccount } = require("../database/queries.ts");
 require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
 let games: Array<object> = new Array
 let totCost = boardConstants.DECR_CREATE_BOARD + boardConstants.DECR_MOVE

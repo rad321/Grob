@@ -1,11 +1,7 @@
 import { boardConstants } from "../constants/constants";
-
-const { Op } = require("sequelize");
-
-var { user } = require('../models/users.ts');
-var { board } = require('../models/boards.ts');
-let today = new Date().toLocaleDateString()
-
+const { user } = require('../models/users.ts');
+const { board } = require('../models/boards.ts');
+let today = new Date().toLocaleDateString('en-GB')
 /**
  * Crea una nuova utenza.
  * @param req 
@@ -19,7 +15,6 @@ export const addNewAccount = async (req) => {
         defeats: 0
     })
 }
-
 /**
  * Restituisce un utente in base alla e-mail.
  * @param email 

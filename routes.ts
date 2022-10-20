@@ -27,7 +27,6 @@ app.post('/signIn', jsonParser, checkEmailFormat, checkEmail, (req, res) => {
  * Rotta per creare una nuova partita, specificando il livello di difficoltà
  * 
  */
-
 app.post('/boards/newboard/:level', jsonParser,checkEmailJwt,checkCredits,checkGameLevel,checkPlayerColor, checkReqTypes, isReqUndefined, (req, res) => {
     createNewGame(req, res)
 })
@@ -40,7 +39,7 @@ app.post('/boards/:boardid/move', jsonParser, checkEmailJwt, checkBoardId,checkA
 /**
  * Rotta per ottenere lo storico di una partita
  */
-app.get('/boards/:boardid/history', checkEmailJwt, (req, res) => {
+app.get('/boards/:boardid/history', checkEmailJwt,checkBoardId, (req, res) => {
     getHistory(req, res)
 })
 /**
