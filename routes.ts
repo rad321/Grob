@@ -1,6 +1,6 @@
 import { checkEmail, checkEmailFormat, checkIfUserExist } from "./middleware/credentials-middleware";
 import { checkEmailJwt } from "./middleware/jwt-middleware";
-import { checkActiveBoards, checkBoardId, checkGameLevel, checkGameState, checkOptionalBoardId, checkPieceMove, checkPlayerColor, checkReqTypes, checkResume, isReqUndefined } from "./middleware/game-middleware";
+import { checkActiveBoards, checkBoardId, checkGameLevel, checkGameState, checkPieceMove, checkPlayerColor, checkReqTypes, checkResume, isReqUndefined } from "./middleware/game-middleware";
 import { abandoned, createNewGame, findBoardInfo, findBoards,getHistory, getRanking, login, pieceMove, setBoardState,signUp } from "./controllers/controller";
 import { checkCredits, checkSortType, dateValidator, isAdmin } from "./middleware/middleware";
 import { updateCredits } from "./controllers/admin-controller";

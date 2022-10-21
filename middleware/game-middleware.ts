@@ -1,5 +1,5 @@
-import { boardConstants, constants, exceptionMsg, successMsg } from "../constants/constants"
-import { findActiveGames, findGameByBoardId, updateBoardState } from "../database/queries"
+import { boardConstants, constants, exceptionMsg } from "../constants/constants"
+import { findActiveGames, findGameByBoardId} from "../database/queries"
 import { Utils } from "../utils/utils"
 import { StatusCodes } from "http-status-codes"
 /**
